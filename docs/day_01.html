@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content='01/12/2022'>
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"
+    ></script>
+
+    <!-- Highlight -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+    <!--  Favicon   https://icons8.com/icons/set/snowflake-emoji  -->
+    <link type="image/png" sizes="96x96" rel="icon" href="static/favicon.png">
+    <title>Day 1 - Advent of Code 2022</title>
+</head>
+<body class="bg-dark">
+<style>
+    h1 {
+        text-align: center;
+        padding: 5vh;
+        color: gold;
+    }
+
+    a {
+        color: #e91e63;
+    }
+</style>
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <!-- Container wrapper -->
+        <div class="container-fluid ">
+
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="/">Advent of Code 2022</a>
+
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-os" role="button"
+                           data-mdb-toggle="dropdown" aria-expanded="false">
+                            All Challenges
+                        </a>
+                        <!-- Dropdown menu -->
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown-os">
+                            <li>
+                                <a class="dropdown-item" href="/day_01.html">Day 1</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_02.html">Day 2</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Optional Header Links -->
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_02.html">next
+day</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+</header>
+
+<article class="container text-white" style="min-height: 94vh;">
+
+    <h1>Advent of Code 2022 - Day 1</h1>
+
+    <div class="container text-center">
+        <a href="https://adventofcode.com/2022/day/1"><button type="button" class="btn btn-light me-1">Official Site</button></a>
+        <a href="#challenge"><button type="button" class="btn btn-light me-1">Challenge</button></a>
+        <a href="#solution"><button type="button" class="btn btn-danger me-1">Solution</button></a>
+    </div>
+
+    <h2 id="challenge">Challenge</h2>
+    <h3 id="day-1-calorie-counting">— Day 1: Calorie Counting —</h3>
+    <p>Santa’s reindeer typically eat regular reindeer food, but they
+    need a lot of magical energy to deliver presents on Christmas. For
+    that, their favorite snack is a special type of <span
+    style="color:#ffff66;">star</span> fruit that only grows deep in the
+    jungle. The Elves have brought you on their annual expedition to the
+    grove where the fruit grows.</p>
+    <p>To supply enough magical energy, the expedition needs to retrieve
+    a minimum of fifty <span style="color:#ffff66;">stars</span> by
+    December 25th. Although the Elves assure you that the grove has
+    plenty of fruit, you decide to grab any fruit you see along the way,
+    just in case.</p>
+    <p>Collect <span style="color:#ffff66;">stars</span> by solving
+    puzzles. Two puzzles will be made available on each day in the
+    Advent calendar; the second puzzle is unlocked when you complete the
+    first. Each puzzle grants one <span
+    style="color:#ffff66;">star</span>. Good luck!</p>
+    <p>The jungle must be too overgrown and difficult to navigate in
+    vehicles or access from the air; the Elves’ expedition traditionally
+    goes on foot. As your boats approach land, the Elves begin taking
+    inventory of their supplies. One important consideration is food -
+    in particular, the number of Calories each Elf is carrying (your
+    puzzle input).</p>
+    <p>The Elves take turns writing down the number of Calories
+    contained by the various meals, snacks, rations, etc. that they’ve
+    brought with them, one item per line. Each Elf separates their own
+    inventory from the previous Elf’s inventory ( if any) by a blank
+    line.</p>
+    <p>For example, suppose the Elves finish writing their items’
+    Calories and end up with the following list:</p>
+    <pre><code>1000
+2000
+3000
+
+4000
+
+5000
+6000
+
+7000
+8000
+9000
+
+10000</code></pre>
+    <p>This list represents the Calories of the food carried by five
+    Elves:</p>
+    <ul>
+    <li>The first Elf is carrying food with <code>1000</code>,
+    <code>2000</code>, and <code>3000</code> Calories, a total of 6000
+    Calories.</li>
+    <li>The second Elf is carrying one food item with <code>4000</code>
+    Calories.</li>
+    <li>The third Elf is carrying food with <code>5000</code> and
+    <code>6000</code> Calories, a total of 11000 Calories.</li>
+    <li>The fourth Elf is carrying food with <code>7000</code>,
+    <code>8000</code>, and <code>9000</code> Calories, a total of
+    <code>24000</code> Calories.</li>
+    <li>The fifth Elf is carrying one food item with <code>10000</code>
+    Calories.</li>
+    </ul>
+    <p>In case the Elves get hungry and need extra snacks, they need to
+    know which Elf to ask: they’d like to know how many Calories are
+    being carried by the Elf carrying the most Calories. In the example
+    above, this is <code>24000</code> (carried by the fourth Elf).</p>
+    <p>Find the Elf carrying the most Calories. How many total Calories
+    is that Elf carrying?</p>
+    <h4 id="your-puzzle-answer-was-74394.">Your puzzle answer was
+    74394.</h4>
+    <h3 id="part-two">— Part Two —</h3>
+    <p>By the time you calculate the answer to the Elves’ question,
+    they’ve already realized that the Elf carrying the most Calories of
+    food might eventually <code>run out of snacks</code>.</p>
+    <p>To avoid this unacceptable situation, the Elves would instead
+    like to know the total Calories carried by the top three Elves
+    carrying the most Calories. That way, even if one of those Elves
+    runs out of snacks, they still have two backups.</p>
+    <p>In the example above, the <code>top three</code> Elves are the
+    fourth Elf (with 24000 Calories), then the third Elf (with 11000
+    Calories), then the fifth Elf (with 10000 Calories). The sum of the
+    Calories carried by these three elves is 45000.</p>
+    <p>Find the top three Elves carrying the most Calories.
+    <code>How many Calories are those Elves carrying in total?</code></p>
+    <h4 id="your-puzzle-answer-was-212836.">Your puzzle answer was
+    212836.</h4>
+    <hr />
+    <h2 id="solution">Solution</h2>
+    <div class="sourceCode" id="cb2"><pre
+    class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> requests <span class="im">import</span> request</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>URL <span class="op">=</span> <span class="st">&quot;https://adventofcode.com/2022/day/1/input&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> request(<span class="st">&quot;GET&quot;</span>, URL, cookies<span class="op">=</span>{<span class="st">&quot;session&quot;</span>: <span class="st">&quot;YOUR_SESSION_COOKIE&quot;</span>})  <span class="co"># Get the input data from website</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> response.text</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> data.split(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)  <span class="co"># Split data into list of lines</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>top_calories <span class="op">=</span> [<span class="st">&quot;ignored&quot;</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]  <span class="co"># Just to make it more beginner friendly let&#39;s ignore index 0</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>current_calories <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> lines:</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> line.isnumeric():</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        current_calories <span class="op">+=</span> <span class="bu">int</span>(line)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> current_calories <span class="op">&gt;</span> top_calories[<span class="dv">1</span>]:  <span class="co"># If current elf is carrying more than current top carrier</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Update max calories</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            top_calories[<span class="dv">3</span>] <span class="op">=</span> top_calories[<span class="dv">2</span>]</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            top_calories[<span class="dv">2</span>] <span class="op">=</span> top_calories[<span class="dv">1</span>]</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            top_calories[<span class="dv">1</span>] <span class="op">=</span> current_calories</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> current_calories <span class="op">&gt;</span> top_calories[<span class="dv">2</span>]:</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            top_calories[<span class="dv">3</span>] <span class="op">=</span> top_calories[<span class="dv">2</span>]</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>            top_calories[<span class="dv">2</span>] <span class="op">=</span> current_calories</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> current_calories <span class="op">&gt;</span> top_calories[<span class="dv">3</span>]:</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            top_calories[<span class="dv">3</span>] <span class="op">=</span> current_calories</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        current_calories <span class="op">=</span> <span class="dv">0</span>  <span class="co"># Reset current calories</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Maximum Total Calories one Elf is Carrying is </span><span class="sc">{</span>top_calories[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Top 3 Elves are carrying </span><span class="sc">{</span> top_calories[<span class="dv">1</span>] <span class="op">+</span> top_calories[<span class="dv">2</span>] <span class="op">+</span> top_calories[<span class="dv">3</span>] <span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+
+</article>
+
+<!-- Footer -->
+<footer class="text-center text-white" style="background-color: rgba(0, 0, 0, 0.2);">
+    <!-- Grid container -->
+    <div class="container p-4">
+
+        <!-- Section: Text -->
+        <section class="mb-4">
+            <p>
+                These are my personal answers to the 2022 <a href="https://adventofcode.com/2022">Advent of Code</a>
+                Challenges.
+            </p>
+        </section>
+        <!-- Section: Text -->
+
+        <!-- Section: Links -->
+        <section class="mb-4">
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Featured</h5>
+
+                    <ul class="list-unstyled mb-0">
+                                                <li>
+                            <a href="/day_02.html" class="text-white">next
+day</a>
+                        </li>
+                                            </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Other Projects</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="https://tryhackme.jeb4.dev/" class="text-white">TryHackMe Notes</a>
+                        </li>
+                        <li>
+                            <a href="https://about.jeb4.dev/" class="text-white">Portfolio</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Contact</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a class="text-white" href="https://github.com/jeb4dev" role="button">Github</a>
+                        </li>
+                        <li>
+                            <a class="text-white" href="mailto: contact@jeb4.dev" role="button">contact@jeb4.dev</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </section>
+        <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        &copy; 2022 Jeb
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+<script>hljs.highlightAll();</script>
+
+</body>
+</html>
