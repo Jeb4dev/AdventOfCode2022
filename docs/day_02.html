@@ -44,6 +44,11 @@
     a {
         color: #e91e63;
     }
+
+    b {
+        text-shadow: 0 0 5px #aaaaaa;
+    }
+
 </style>
 <header>
     <!-- Navbar -->
@@ -85,7 +90,11 @@
 
                     <!-- Optional Header Links -->
                                         <li class="nav-item">
-                        <a class="nav-link" href="/day_01.html">previous
+                        <a class="nav-link" href="/day_01.html">Previous
+day</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_03.html">Next
 day</a>
                     </li>
                     
@@ -108,11 +117,137 @@ day</a>
     </div>
 
     <h2 id="challenge">Challenge</h2>
-    <h3 id="day-2">— Day 2: —</h3>
+    <h3 id="day-2-rock-paper-scissors">— Day 2: Rock Paper Scissors
+    —</h3>
+    <p>The Elves begin to set up camp on the beach. To decide whose tent
+    gets to be closest to the snack storage, a giant Rock Paper Scissors
+    tournament is already in progress.</p>
+    <p>Rock Paper Scissors is a game between two players. Each game
+    contains many rounds; in each round, the players each simultaneously
+    choose one of Rock, Paper, or Scissors using a hand shape. Then, a
+    winner for that round is selected: Rock defeats Scissors, Scissors
+    defeats Paper, and Paper defeats Rock. If both players choose the
+    same shape, the round instead ends in a draw.</p>
+    <p>Appreciative of your help <a href="day_01.html">yesterday</a>, one
+    Elf gives you an <b>encrypted strategy guide</b> (your puzzle input)
+    that they say will be sure to help you win. “The first column is
+    what your opponent is going to play: <code>A</code> for Rock,
+    <code>B</code> for Paper, and <code>C</code> for Scissors. The
+    second column–” Suddenly, the Elf is called away to help with
+    someone’s tent.</p>
+    <p>The second column, you reason, must be what you should play in
+    response: <code>X</code> for Rock, <code>Y</code> for Paper, and
+    <code>Z</code> for Scissors. Winning every time would be suspicious,
+    so the responses must have been carefully chosen.</p>
+    <p>The winner of the whole tournament is the player with the highest
+    score. Your <b>total score</b> is the sum of your scores for each
+    round. The score for a single round is the score for the <b>shape
+    you selected</b> (1 for Rock, 2 for Paper, and 3 for Scissors) plus
+    the score for the <b>outcome of the round</b> (0 if you lost, 3 if
+    the round was a draw, and 6 if you won).</p>
+    <p>Since you can’t be sure if the Elf is trying to help you or trick
+    you, you should calculate the score you would get if you were to
+    follow the strategy guide.</p>
+    <p>For example, suppose you were given the following strategy
+    guide:</p>
+    <pre><code>A Y
+B X
+C Z</code></pre>
+    <p>This strategy guide predicts and recommends the following:</p>
+    <ul>
+    <li>In the first round, your opponent will choose Rock
+    (<code>A</code>), and you should choose Paper (<code>Y</code>). This
+    ends in a win for you with a score of <b>8</b> (2 because you chose
+    Paper + 6 because you won).</li>
+    <li>In the second round, your opponent will choose Paper
+    (<code>B</code>), and you should choose Rock (<code>X</code>). This
+    ends in a loss for you with a score of 1 (1 + 0).</li>
+    <li>The third round is a draw with both players choosing Scissors,
+    giving you a score of 3 + 3 = <b>6</b>.</li>
+    </ul>
+    <p>In this example, if you were to follow the strategy guide, you
+    would get a total score of <b><code>15</code></b> (8 + 1 + 6).</p>
+    <p><b>What would your total score be if everything goes exactly
+    according to your strategy guide?</b></p>
+    <h4 id="your-puzzle-answer-was-13809.">Your puzzle answer was
+    13809.</h4>
     <h3 id="part-two">— Part Two —</h3>
+    <p>The Elf finishes helping with the tent and sneaks back over to
+    you. “Anyway, the second column says how the round needs to end: X
+    means you need to lose, <code>Y</code> means you need to end the
+    round in a draw, and Z means you need to win. Good luck!”</p>
+    <p>The total score is still calculated in the same way, but now you
+    need to figure out what shape to choose so the round ends as
+    indicated. The example above now goes like this:</p>
+    <ul>
+    <li>In the first round, your opponent will choose Rock
+    (<code>A</code>), and you need the round to end in a draw
+    (<code>Y</code>), so you also choose Rock. This gives you a score of
+    1 + 3 = <b>4</b>.</li>
+    <li>In the second round, your opponent will choose Paper
+    (<code>B</code>), and you choose Rock, so you lose (<code>X</code>)
+    with a score of 1 + 0 = 1.</li>
+    <li>In the third round, you will defeat your opponent’s Scissors
+    with Rock for a score of 1 + 6 = <b>7</b>.</li>
+    </ul>
+    <p>Now that you’re correctly decrypting the ultra top secret
+    strategy guide, you would get a total score of
+    <b><code>12</code></b>.</p>
+    <p>Following the Elf’s instructions for the second column, <b>what
+    would your total score be if everything goes exactly according to
+    your strategy guide</b>?</p>
+    <h4 id="your-puzzle-answer-was-12316.">Your puzzle answer was
+    12316.</h4>
     <hr />
     <h2 id="solution">Solution</h2>
-    <pre><code>TODO</code></pre>
+    <div class="sourceCode" id="cb2"><pre
+    class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">Solution for Advent of Code 2022 day 2.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_score(_elf_choose, _my_choose):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    matrix <span class="op">=</span> {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;AX&quot;</span>: <span class="dv">1</span><span class="op">+</span><span class="dv">3</span>, <span class="st">&quot;BX&quot;</span>: <span class="dv">1</span><span class="op">+</span><span class="dv">0</span>, <span class="st">&quot;CX&quot;</span>: <span class="dv">1</span><span class="op">+</span><span class="dv">6</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;AY&quot;</span>: <span class="dv">2</span><span class="op">+</span><span class="dv">6</span>, <span class="st">&quot;BY&quot;</span>: <span class="dv">2</span><span class="op">+</span><span class="dv">3</span>, <span class="st">&quot;CY&quot;</span>: <span class="dv">2</span><span class="op">+</span><span class="dv">0</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;AZ&quot;</span>: <span class="dv">3</span><span class="op">+</span><span class="dv">0</span>, <span class="st">&quot;BZ&quot;</span>: <span class="dv">3</span><span class="op">+</span><span class="dv">6</span>, <span class="st">&quot;CZ&quot;</span>: <span class="dv">3</span><span class="op">+</span><span class="dv">3</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> matrix[_elf_choose<span class="op">+</span>_my_choose]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Part One</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;../input.txt&quot;</span>, <span class="st">&quot;r&quot;</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Part One</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    score <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">file</span>.readlines():</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        elf_choose <span class="op">=</span> line[<span class="dv">0</span>]</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        my_choose <span class="op">=</span> line[<span class="dv">2</span>]</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        score <span class="op">+=</span> calculate_score(elf_choose, my_choose)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;Answer to part one: </span><span class="sc">{</span>score<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">file</span>.close()</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Part Two</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;../input.txt&quot;</span>, <span class="st">&quot;r&quot;</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    score <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    choose_dict <span class="op">=</span> {</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;A X&quot;</span>: <span class="st">&quot;Z&quot;</span>, <span class="st">&quot;B X&quot;</span>: <span class="st">&quot;X&quot;</span>, <span class="st">&quot;C X&quot;</span>: <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;A Y&quot;</span>: <span class="st">&quot;X&quot;</span>, <span class="st">&quot;B Y&quot;</span>: <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;C Y&quot;</span>: <span class="st">&quot;Z&quot;</span>,</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;A Z&quot;</span>: <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;B Z&quot;</span>: <span class="st">&quot;Z&quot;</span>, <span class="st">&quot;C Z&quot;</span>: <span class="st">&quot;X&quot;</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">file</span>.readlines():</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>        elf_choose <span class="op">=</span> line[<span class="dv">0</span>]</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        my_choose <span class="op">=</span> choose_dict[line[:<span class="op">-</span><span class="dv">1</span>]]  <span class="co"># Search right choose from dict, ignore new line character</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        score <span class="op">+=</span> calculate_score(elf_choose, my_choose)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;Answer to part two: </span><span class="sc">{</span>score<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">file</span>.close()</span></code></pre></div>
 
 </article>
 
@@ -141,7 +276,11 @@ day</a>
 
                     <ul class="list-unstyled mb-0">
                                                 <li>
-                            <a href="/day_01.html" class="text-white">previous
+                            <a href="/day_01.html" class="text-white">Previous
+day</a>
+                        </li>
+                                                <li>
+                            <a href="/day_03.html" class="text-white">Next
 day</a>
                         </li>
                                             </ul>
