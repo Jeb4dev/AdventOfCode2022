@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content='03/12/2022'>
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"
+    ></script>
+
+    <!-- Highlight -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+    <!--  Favicon   https://icons8.com/icons/set/snowflake-emoji  -->
+    <link type="image/png" sizes="96x96" rel="icon" href="static/favicon.png">
+    <title>Day 3 - Advent of Code 2022</title>
+</head>
+<body class="bg-dark">
+<style>
+    h1 {
+        text-align: center;
+        padding: 5vh;
+        color: gold;
+    }
+
+    a {
+        color: #e91e63;
+    }
+
+    b {
+        text-shadow: 0 0 5px #aaaaaa;
+    }
+
+</style>
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <!-- Container wrapper -->
+        <div class="container-fluid ">
+
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="/">Advent of Code 2022</a>
+
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-os" role="button"
+                           data-mdb-toggle="dropdown" aria-expanded="false">
+                            All Challenges
+                        </a>
+                        <!-- Dropdown menu -->
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown-os">
+                            <li>
+                                <a class="dropdown-item" href="/day_01.html">Day 1</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_02.html">Day 2</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Optional Header Links -->
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_02.html">Previous
+day</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_04.html">Next
+day</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+</header>
+
+<article class="container text-white" style="min-height: 94vh;">
+
+    <h1>Advent of Code 2022 - Day 3</h1>
+
+    <div class="container text-center">
+        <a href="https://adventofcode.com/2022/day/3"><button type="button" class="btn btn-light me-1">Official Site</button></a>
+        <a href="#challenge"><button type="button" class="btn btn-light me-1">Challenge</button></a>
+        <a href="#solution"><button type="button" class="btn btn-danger me-1">Solution</button></a>
+    </div>
+
+    <h2 id="challenge">Challenge</h2>
+    <h3 id="day-3-rucksack-reorganization">— Day 3: Rucksack
+    Reorganization —</h3>
+    <p>One Elf has the important job of loading all the rucksacks with
+    supplies for the jungle journey. Unfortunately, that Elf didn’t
+    quite follow the packing instructions, and so a few items now need
+    to be rearranged.</p>
+    <p>Each rucksack has two large <strong>compartments</strong>. All
+    items of a given type are meant to go into exactly one of the two
+    compartments. The Elf that did the packing failed to follow this
+    rule for exactly one item type per rucksack.</p>
+    <p>The Elves have made a list of all the items currently in each
+    rucksack (your puzzle input), but they need your help finding the
+    errors. Every item type is identified by a single lowercase or
+    uppercase letter (that is, a and A refer to different types of
+    items).</p>
+    <p>The list of items for each rucksack is given as characters all on
+    a single line. A given rucksack always has the same number of items
+    in each of its two compartments, so the first half of the characters
+    represent items in the first compartment, while the second half of
+    the characters represent items in the second compartment.</p>
+    <p>For example, suppose you have the following list of contents from
+    six rucksacks:</p>
+    <pre><code>vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw</code></pre>
+    <ul>
+    <li>The first rucksack contains the items
+    <code>vJrwpWtwJgWrhcsFMMfFFhFp</code>, which means its first
+    compartment contains the items <code>vJrwpWtwJgWr</code>, while the
+    second compartment contains the items hcsFMMfFFhFp. The only item
+    type that appears in both compartments is lowercase p.</li>
+    <li>The second rucksack’s compartments contain
+    <code>jqHRNqRjqzjGDLGL</code> and <code>rsFMfFZSrLrFZsSL</code>. The
+    only item type that appears in both compartments is uppercase
+    <strong>L</strong>.</li>
+    <li>The third rucksack’s compartments contain <code>PmmdzqPrV</code>
+    and vPwwTWBwg; the only common item type is uppercase
+    <strong>P</strong>.</li>
+    <li>The fourth rucksack’s compartments only share item type
+    <strong>v</strong>.</li>
+    <li>The fifth rucksack’s compartments only share item type
+    <strong>t</strong>.</li>
+    <li>The sixth rucksack’s compartments only share item type
+    <strong>s</strong>.</li>
+    </ul>
+    <p>To help prioritize item rearrangement, every item type can be
+    converted to a <strong>priority</strong>:</p>
+    <ul>
+    <li>Lowercase item types a through z have priorities 1 through
+    26.</li>
+    <li>Uppercase item types A through Z have priorities 27 through
+    52</li>
+    </ul>
+    <p>In the above example, the priority of the item type that appears
+    in both compartments of each rucksack is 16 (<code>p</code>), 38
+    (<code>L</code>), 42 (<code>P</code>), 22 (<code>v</code>), 20
+    (<code>t</code>), and 19 (<code>s</code>); the sum of these is
+    <strong>157</strong>.</p>
+    <p>Find the item type that appears in both compartments of each
+    rucksack. <strong>What is the sum of the priorities of those item
+    types?</strong></p>
+    <h4 id="your-puzzle-answer-was-7428.">Your puzzle answer was
+    7428.</h4>
+    <h3 id="part-two">— Part Two —</h3>
+    <p>As you finish identifying the misplaced items, the Elves come to
+    you with another issue.</p>
+    <p>For safety, the Elves are divided into groups of three. Every Elf
+    carries a badge that identifies their group. For efficiency, within
+    each group of three Elves, the badge is the <strong>only item type
+    carried by all three Elves</strong>. That is, if a group’s badge is
+    item type B, then all three Elves will have item type <code>B</code>
+    somewhere in their rucksack, and at most two of the Elves will be
+    carrying any other item type.</p>
+    <p>The problem is that someone forgot to put this year’s updated
+    authenticity sticker on the badges. All the badges need to be pulled
+    out of the rucksacks so the new authenticity stickers can be
+    attached.</p>
+    <p>Additionally, nobody wrote down which item type corresponds to
+    each group’s badges. The only way to tell which item type is the
+    right one is by finding the one item type that is <strong>common
+    between all three Elves</strong> in each group.</p>
+    <p>Every set of three lines in your list corresponds to a single
+    group, but each group can have a different badge item type. So, in
+    the above example, the first group’s rucksacks are the first three
+    lines:</p>
+    <pre><code>vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg</code></pre>
+    <p>And the second group’s rucksacks are the next three lines:,</p>
+    <pre><code>wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw</code></pre>
+    <p>In the first group, the only item type that appears in all three
+    rucksacks is lowercase <code>r</code>; this must be their badges. In
+    the second group, their badge item type must be <code>Z</code>.</p>
+    <p>Priorities for these items must still be found to organize the
+    sticker attachment efforts: here, they are 18 (<code>r</code>) for
+    the first group and 52 (<code>Z</code>) for the second group. The
+    sum of these is <strong>70</strong>.</p>
+    <p>Find the item type that corresponds to the badges of each
+    three-Elf group. <strong>What is the sum of the priorities of those
+    item types?</strong></p>
+    <h4 id="your-puzzle-answer-was-2650.">Your puzzle answer was
+    2650.</h4>
+    <hr />
+    <h2 id="solution">Solution</h2>
+    <p>This solution is written in <code>golang</code></p>
+    <div class="sourceCode" id="cb4"><pre
+    class="sourceCode go"><code class="sourceCode go"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Solution for Advent of Code 2022 day 3.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> main</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="op">(</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;bufio&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fmt&quot;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;os&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;strings&quot;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> getCommonCharacters<span class="op">(</span>str1 <span class="dt">string</span><span class="op">,</span> str2 <span class="dt">string</span><span class="op">)</span> <span class="op">[]</span><span class="dt">string</span> <span class="op">{</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> commons <span class="op">[]</span><span class="dt">string</span> <span class="co">// List of common characters</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    map1 <span class="op">:=</span> <span class="kw">map</span><span class="op">[</span><span class="dt">string</span><span class="op">]</span><span class="dt">int</span><span class="op">{}</span> <span class="co">// Initialize empty dictionary</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Fill dict with characters of str1</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="op">:=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="bu">len</span><span class="op">(</span>str1<span class="op">);</span> i<span class="op">++</span> <span class="op">{</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        map1<span class="op">[</span><span class="dt">string</span><span class="op">(</span>str1<span class="op">[</span>i<span class="op">])]</span> <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="op">:=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="bu">len</span><span class="op">(</span>str2<span class="op">);</span> i<span class="op">++</span> <span class="op">{</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        _<span class="op">,</span> ok <span class="op">:=</span> map1<span class="op">[</span><span class="dt">string</span><span class="op">(</span>str2<span class="op">[</span>i<span class="op">])]</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> ok <span class="op">{</span> <span class="co">// if key was found</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            common <span class="op">:=</span> <span class="dt">string</span><span class="op">(</span>str2<span class="op">[</span>i<span class="op">])</span>         <span class="co">// common is the string in current index</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            commons <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>commons<span class="op">,</span> common<span class="op">)</span> <span class="co">// add it into the list of common characters</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> commons</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    priorities <span class="op">:=</span> <span class="kw">map</span><span class="op">[</span><span class="dt">string</span><span class="op">]</span><span class="dt">int</span><span class="op">{</span><span class="st">&quot;a&quot;</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="st">&quot;b&quot;</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="st">&quot;c&quot;</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="st">&quot;d&quot;</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="st">&quot;e&quot;</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="st">&quot;f&quot;</span><span class="op">:</span> <span class="dv">6</span><span class="op">,</span> <span class="st">&quot;g&quot;</span><span class="op">:</span> <span class="dv">7</span><span class="op">,</span> <span class="st">&quot;h&quot;</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span> <span class="st">&quot;i&quot;</span><span class="op">:</span> <span class="dv">9</span><span class="op">,</span> <span class="st">&quot;j&quot;</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;k&quot;</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span> <span class="st">&quot;l&quot;</span><span class="op">:</span> <span class="dv">12</span><span class="op">,</span> <span class="st">&quot;m&quot;</span><span class="op">:</span> <span class="dv">13</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span> <span class="st">&quot;o&quot;</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="st">&quot;p&quot;</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span> <span class="st">&quot;q&quot;</span><span class="op">:</span> <span class="dv">17</span><span class="op">,</span> <span class="st">&quot;r&quot;</span><span class="op">:</span> <span class="dv">18</span><span class="op">,</span> <span class="st">&quot;s&quot;</span><span class="op">:</span> <span class="dv">19</span><span class="op">,</span> <span class="st">&quot;t&quot;</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="st">&quot;u&quot;</span><span class="op">:</span> <span class="dv">21</span><span class="op">,</span> <span class="st">&quot;v&quot;</span><span class="op">:</span> <span class="dv">22</span><span class="op">,</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;w&quot;</span><span class="op">:</span> <span class="dv">23</span><span class="op">,</span> <span class="st">&quot;x&quot;</span><span class="op">:</span> <span class="dv">24</span><span class="op">,</span> <span class="st">&quot;y&quot;</span><span class="op">:</span> <span class="dv">25</span><span class="op">,</span> <span class="st">&quot;z&quot;</span><span class="op">:</span> <span class="dv">26</span><span class="op">,</span> <span class="st">&quot;A&quot;</span><span class="op">:</span> <span class="dv">27</span><span class="op">,</span> <span class="st">&quot;B&quot;</span><span class="op">:</span> <span class="dv">28</span><span class="op">,</span> <span class="st">&quot;C&quot;</span><span class="op">:</span> <span class="dv">29</span><span class="op">,</span> <span class="st">&quot;D&quot;</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span> <span class="st">&quot;E&quot;</span><span class="op">:</span> <span class="dv">31</span><span class="op">,</span> <span class="st">&quot;F&quot;</span><span class="op">:</span> <span class="dv">32</span><span class="op">,</span> <span class="st">&quot;G&quot;</span><span class="op">:</span> <span class="dv">33</span><span class="op">,</span> <span class="st">&quot;H&quot;</span><span class="op">:</span> <span class="dv">34</span><span class="op">,</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;I&quot;</span><span class="op">:</span> <span class="dv">35</span><span class="op">,</span> <span class="st">&quot;J&quot;</span><span class="op">:</span> <span class="dv">36</span><span class="op">,</span> <span class="st">&quot;K&quot;</span><span class="op">:</span> <span class="dv">37</span><span class="op">,</span> <span class="st">&quot;L&quot;</span><span class="op">:</span> <span class="dv">38</span><span class="op">,</span> <span class="st">&quot;M&quot;</span><span class="op">:</span> <span class="dv">39</span><span class="op">,</span> <span class="st">&quot;N&quot;</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="st">&quot;O&quot;</span><span class="op">:</span> <span class="dv">41</span><span class="op">,</span> <span class="st">&quot;P&quot;</span><span class="op">:</span> <span class="dv">42</span><span class="op">,</span> <span class="st">&quot;Q&quot;</span><span class="op">:</span> <span class="dv">43</span><span class="op">,</span> <span class="st">&quot;R&quot;</span><span class="op">:</span> <span class="dv">44</span><span class="op">,</span> <span class="st">&quot;S&quot;</span><span class="op">:</span> <span class="dv">45</span><span class="op">,</span> <span class="st">&quot;T&quot;</span><span class="op">:</span> <span class="dv">46</span><span class="op">,</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;U&quot;</span><span class="op">:</span> <span class="dv">47</span><span class="op">,</span> <span class="st">&quot;V&quot;</span><span class="op">:</span> <span class="dv">48</span><span class="op">,</span> <span class="st">&quot;W&quot;</span><span class="op">:</span> <span class="dv">49</span><span class="op">,</span> <span class="st">&quot;X&quot;</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="st">&quot;Y&quot;</span><span class="op">:</span> <span class="dv">51</span><span class="op">,</span> <span class="st">&quot;Z&quot;</span><span class="op">:</span> <span class="dv">52</span><span class="op">}</span> <span class="co">// This is kinda stupid to hardcode but...</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    totalPriorityPart1 <span class="op">:=</span> <span class="dv">0</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    totalPriorityPart2 <span class="op">:=</span> <span class="dv">0</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    rowGroup <span class="op">:=</span> <span class="kw">map</span><span class="op">[</span><span class="dt">string</span><span class="op">]</span><span class="dt">string</span><span class="op">{</span><span class="st">&quot;row1&quot;</span><span class="op">:</span> <span class="st">&quot;&quot;</span><span class="op">,</span> <span class="st">&quot;row2&quot;</span><span class="op">:</span> <span class="st">&quot;&quot;</span><span class="op">}</span> <span class="co">// storage for contents of previous rows</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    f<span class="op">,</span> _ <span class="op">:=</span> os<span class="op">.</span>Open<span class="op">(</span><span class="st">&quot;input.txt&quot;</span><span class="op">)</span> <span class="co">// Read file</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    scanner <span class="op">:=</span> bufio<span class="op">.</span>NewScanner<span class="op">(</span>f<span class="op">)</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> scanner<span class="op">.</span>Scan<span class="op">()</span> <span class="op">{</span> <span class="co">// loop input file row by row</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        txt <span class="op">:=</span> scanner<span class="op">.</span>Text<span class="op">()</span> <span class="co">// txt of row</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>        middle <span class="op">:=</span> <span class="bu">len</span><span class="op">(</span>txt<span class="op">)</span> <span class="op">/</span> <span class="dv">2</span> <span class="co">// Middle index</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Split string into two from the middle</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>        compartment1 <span class="op">:=</span> txt<span class="op">[:</span>middle<span class="op">]</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        compartment2 <span class="op">:=</span> txt<span class="op">[</span>middle<span class="op">:]</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>        commons <span class="op">:=</span> getCommonCharacters<span class="op">(</span>compartment1<span class="op">,</span> compartment2<span class="op">)</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>        totalPriorityPart1 <span class="op">+=</span> priorities<span class="op">[</span>commons<span class="op">[</span><span class="dv">0</span><span class="op">]]</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Part 2</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> rowGroup<span class="op">[</span><span class="st">&quot;row1&quot;</span><span class="op">]</span> <span class="op">==</span> <span class="st">&quot;&quot;</span> <span class="op">{</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>            rowGroup<span class="op">[</span><span class="st">&quot;row1&quot;</span><span class="op">]</span> <span class="op">=</span> txt</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> rowGroup<span class="op">[</span><span class="st">&quot;row2&quot;</span><span class="op">]</span> <span class="op">==</span> <span class="st">&quot;&quot;</span> <span class="op">{</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>            rowGroup<span class="op">[</span><span class="st">&quot;row1&quot;</span><span class="op">]</span> <span class="op">=</span> txt</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>            lstCommons <span class="op">:=</span> getCommonCharacters<span class="op">(</span>rowGroup<span class="op">[</span><span class="st">&quot;row1&quot;</span><span class="op">],</span> rowGroup<span class="op">[</span><span class="st">&quot;row2&quot;</span><span class="op">])</span> <span class="co">// List of commons in row 1 and 2</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>            strCommons <span class="op">:=</span> strings<span class="op">.</span>Join<span class="op">(</span>lstCommons<span class="op">,</span> <span class="st">&quot;&quot;</span><span class="op">)</span> <span class="co">// Convert list to string</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>            lstCommons <span class="op">=</span> getCommonCharacters<span class="op">(</span>strCommons<span class="op">,</span> txt<span class="op">)</span> <span class="co">// List of commons in row 3 and commons of row 1 and 2</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>            totalPriorityPart2 <span class="op">+=</span> priorities<span class="op">[</span>lstCommons<span class="op">[</span><span class="dv">0</span><span class="op">]]</span> <span class="co">// Increment total amount of priority</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>            rowGroup<span class="op">[</span><span class="st">&quot;row1&quot;</span><span class="op">],</span> rowGroup<span class="op">[</span><span class="st">&quot;row2&quot;</span><span class="op">]</span> <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">,</span> <span class="st">&quot;&quot;</span> <span class="co">// Empty row group storage</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Printf<span class="op">(</span><span class="st">&quot;Total Priority is %d </span><span class="ch">\n</span><span class="st">&quot;</span><span class="op">,</span> totalPriorityPart1<span class="op">)</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Printf<span class="op">(</span><span class="st">&quot;Total Priority of part 2 is %d&quot;</span><span class="op">,</span> totalPriorityPart2<span class="op">)</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+
+</article>
+
+<!-- Footer -->
+<footer class="text-center text-white" style="background-color: rgba(0, 0, 0, 0.2);">
+    <!-- Grid container -->
+    <div class="container p-4">
+
+        <!-- Section: Text -->
+        <section class="mb-4">
+            <p>
+                These are my personal answers to the 2022 <a href="https://adventofcode.com/2022">Advent of Code</a>
+                Challenges.
+            </p>
+        </section>
+        <!-- Section: Text -->
+
+        <!-- Section: Links -->
+        <section class="mb-4">
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Featured</h5>
+
+                    <ul class="list-unstyled mb-0">
+                                                <li>
+                            <a href="/day_02.html" class="text-white">Previous
+day</a>
+                        </li>
+                                                <li>
+                            <a href="/day_04.html" class="text-white">Next
+day</a>
+                        </li>
+                                            </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Other Projects</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="https://tryhackme.jeb4.dev/" class="text-white">TryHackMe Notes</a>
+                        </li>
+                        <li>
+                            <a href="https://about.jeb4.dev/" class="text-white">Portfolio</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Contact</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a class="text-white" href="https://github.com/jeb4dev" role="button">Github</a>
+                        </li>
+                        <li>
+                            <a class="text-white" href="mailto: contact@jeb4.dev" role="button">contact@jeb4.dev</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </section>
+        <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        &copy; 2022 Jeb
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+<script>hljs.highlightAll();</script>
+
+</body>
+</html>

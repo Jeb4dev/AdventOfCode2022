@@ -23,6 +23,8 @@ Advent of Code is ...
 
 ## Solution
 
-- [Day 1](day_01.html)
-- [Day 2](day_02.html)
+- [Day 1](day_01.html) Python
+- [Day 2](day_02.html) Python
+- [Day 3](day_03.html) Go
+- [Day 4](day_04.html) ??
 
