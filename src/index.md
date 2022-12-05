@@ -17,7 +17,10 @@ FooterLink:
 
 ## Challenge
 
-Advent of Code is ...
+Advent of Code is an Advent calendar of small programming puzzles for a variety of skill sets and skill levels that can 
+be solved in any programming language you like.
+
+I took that bit too literal and aim to solve each challenge with different programming language.
 
 ---
 
@@ -26,5 +29,7 @@ Advent of Code is ...
 - [Day 1](day_01.html) Python
 - [Day 2](day_02.html) Python
 - [Day 3](day_03.html) Go
-- [Day 4](day_04.html) ??
+- [Day 4](day_04.html) Ruby
+- [Day 5](day_05.html) Visual Basic
+- [Day 6](day_06.html) ??
 
