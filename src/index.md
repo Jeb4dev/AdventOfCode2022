@@ -31,5 +31,6 @@ I took that bit too literal and aim to solve each challenge with different progr
 - [Day 3](day_03.html) Go
 - [Day 4](day_04.html) Ruby
 - [Day 5](day_05.html) Visual Basic
-- [Day 6](day_06.html) ??
+- [Day 6](day_06.html) C
+- [Day 7](day_07.html) ??
 

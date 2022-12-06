@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content='06/12/2022'>
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"
+    ></script>
+
+    <!-- Highlight -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+    <!--  Favicon   https://icons8.com/icons/set/snowflake-emoji  -->
+    <link type="image/png" sizes="96x96" rel="icon" href="static/favicon.png">
+    <title>Day 6 - Advent of Code 2022</title>
+</head>
+<body class="bg-dark">
+<style>
+    h1 {
+        text-align: center;
+        padding: 5vh;
+        color: gold;
+    }
+
+    a {
+        color: #e91e63;
+    }
+
+    b {
+        text-shadow: 0 0 5px #aaaaaa;
+    }
+
+</style>
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <!-- Container wrapper -->
+        <div class="container-fluid ">
+
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="/">Advent of Code 2022</a>
+
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-os" role="button"
+                           data-mdb-toggle="dropdown" aria-expanded="false">
+                            All Challenges
+                        </a>
+                        <!-- Dropdown menu -->
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown-os">
+                            <li>
+                                <a class="dropdown-item" href="/day_01.html">Day 1</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_02.html">Day 2</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_03.html">Day 3</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_04.html">Day 4</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_05.html">Day 5</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_06.html">Day 6</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Optional Header Links -->
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_05.html">Previous
+day</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_07.html">Next
+day</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+</header>
+
+<article class="container text-white" style="min-height: 94vh;">
+
+    <h1>Advent of Code 2022 - Day 6</h1>
+
+    <div class="container text-center">
+        <a href="https://adventofcode.com/2022/day/6"><button type="button" class="btn btn-light me-1">Official Site</button></a>
+        <a href="#challenge"><button type="button" class="btn btn-light me-1">Challenge</button></a>
+        <a href="#solution"><button type="button" class="btn btn-danger me-1">Solution</button></a>
+    </div>
+
+    <h2 id="challenge">Challenge</h2>
+    <h3 id="day-5-tuning-trouble">— Day 5: Tuning Trouble —</h3>
+    <p>The preparations are finally complete; you and the Elves leave
+    camp on foot and begin to make your way toward the <span
+    style="color:#ffff66;">star</span> fruit grove.</p>
+    <p>As you move through the dense undergrowth, one of the Elves gives
+    you a handheld <strong>device</strong>. He says that it has many
+    fancy features, but the most important one to set up right now is
+    the <strong>communication system</strong>.</p>
+    <p>However, because he’s heard you have <strong>significant
+    experience dealing with signal-based systems</strong>, he convinced
+    the other Elves that it would be okay to give you their one
+    malfunctioning device - surely you’ll have no problem fixing it.</p>
+    <p>As if inspired by comedic timing, the device emits a few colorful
+    sparks.</p>
+    <p>To be able to communicate with the Elves, the device needs to
+    <strong>lock on to their signal</strong>. The signal is a series of
+    seemingly-random characters that the device receives one at a
+    time.</p>
+    <p>To fix the communication system, you need to add a subroutine to
+    the device that detects a <strong>start-of-packet marker</strong> in
+    the datastream. In the protocol being used by the Elves, the start
+    of a packet is indicated by a sequence of <strong>four characters
+    that are all different</strong>.</p>
+    <p>The device will send your subroutine a datastream buffer (your
+    puzzle input); your subroutine needs to identify the first position
+    where the four most recently received characters were all different.
+    Specifically, it needs to report the number of characters from the
+    beginning of the buffer to the end of the first such four-character
+    marker.</p>
+    <p>For example, suppose you receive the following datastream
+    buffer:</p>
+    <p><code>mjqjpqmgbljsphdztnvjfqwrcgsmlb</code></p>
+    <p>After the first three characters (<code>mjq</code>) have been
+    received, there haven’t been enough characters received yet to find
+    the marker. The first time a marker could occur is after the fourth
+    character is received, making the most recent four characters
+    <code>mjqj</code>. Because <code>j</code> is repeated, this isn’t a
+    marker.</p>
+    <p>The first time a marker appears is after the
+    <strong>seventh</strong> character arrives. Once it does, the last
+    four characters received are <code>jpqm</code>, which are all
+    different. In this case, your subroutine should report the value
+    <code>7</code>, because the first start-of-packet marker is complete
+    after 7 characters have been processed.</p>
+    <p>Here are a few more examples:</p>
+    <ul>
+    <li><code>bvwbjplbgvbhsrlpgdmjqwftvncz</code>: first marker after
+    character <strong>5</strong></li>
+    <li><code>nppdvjthqldpwncqszvftbrmjlhg</code>: first marker after
+    character <strong>6</strong></li>
+    <li><code>nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg</code>: first marker
+    after character <strong>10</strong></li>
+    <li><code>zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw</code>: first marker
+    after character <strong>11</strong></li>
+    </ul>
+    <p><strong>How many characters need to be processed before the first
+    start-of-packet marker is detected?</strong></p>
+    <h4 id="your-puzzle-answer-was-1912.">Your puzzle answer was
+    1912.</h4>
+    <h3 id="part-two">— Part Two —</h3>
+    <h4 id="your-puzzle-answer-was-2122.">Your puzzle answer was
+    2122.</h4>
+    <p>Your device’s communication system is correctly detecting
+    packets, but still isn’t working. It looks like it also needs to
+    look for <strong>messages</strong>.</p>
+    <p>A <strong>start-of-message marker</strong> is just like a
+    start-of-packet marker, except it consists of <strong>14 distinct
+    characters</strong> rather than 4.</p>
+    <p>Here are the first positions of start-of-message markers for all
+    of the above examples:</p>
+    <ul>
+    <li><code>mjqjpqmgbljsphdztnvjfqwrcgsmlb</code>: first marker after
+    character <strong>19</strong></li>
+    <li><code>bvwbjplbgvbhsrlpgdmjqwftvncz</code>: first marker after
+    character <strong>23</strong></li>
+    <li><code>nppdvjthqldpwncqszvftbrmjlhg</code>: first marker after
+    character <strong>23</strong></li>
+    <li><code>nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg</code>: first marker
+    after character <strong>29</strong></li>
+    <li><code>zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw</code>: first marker
+    after character <strong>26</strong></li>
+    </ul>
+    <p><strong>How many characters need to be processed before the first
+    start-of-message marker is detected?</strong></p>
+    <hr />
+    <h2 id="solution">Solution</h2>
+    <p>This solution is written in <code>C</code>. I also tried to code
+    it in <code>Assembly</code> but didn’t find the solution.</p>
+    <div class="sourceCode" id="cb1"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Solution for Advent of Code 2022 day 6.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Checks for duplicates in array</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> duplicate<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>history<span class="op">,</span> <span class="dt">int</span> size<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> j<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> size<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(!</span>history<span class="op">[</span><span class="dv">0</span><span class="op">])</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> size<span class="op">;</span> j<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>history<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> history<span class="op">[</span>j<span class="op">]</span> <span class="op">&amp;&amp;</span> i <span class="op">!=</span> j<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;%s was the right signal at index: &quot;</span><span class="op">,</span> history<span class="op">);</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">// Update array, move each element one to &quot;left&quot;, add new ch element to last index</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> update<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>history<span class="op">,</span> <span class="dt">char</span> ch<span class="op">,</span> <span class="dt">int</span> size<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i<span class="op">;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> size<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        history<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> history<span class="op">[</span>i<span class="op">+</span><span class="dv">1</span><span class="op">];</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    history<span class="op">[</span>size<span class="op">-</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> ch<span class="op">;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> size<span class="op">;</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    size <span class="op">=</span> <span class="dv">4</span><span class="op">;</span> <span class="co">// Change size to 14 for part 2</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="dt">FILE</span> <span class="op">*</span>ptr<span class="op">;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> index<span class="op">;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> ch<span class="op">;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> history<span class="op">[</span>size<span class="op">];</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Opening file in reading mode</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    ptr <span class="op">=</span> fopen<span class="op">(</span><span class="st">&quot;path_to/input.txt&quot;</span><span class="op">,</span> <span class="st">&quot;r&quot;</span><span class="op">);</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>NULL <span class="op">==</span> ptr<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;file can&#39;t be opened </span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    index <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Printing what is written in file</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="co">// character by character using loop.</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        ch <span class="op">=</span> fgetc<span class="op">(</span>ptr<span class="op">);</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>duplicate<span class="op">(</span>history<span class="op">,</span> size<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;%d </span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> index<span class="op">);</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>        update<span class="op">(</span>history<span class="op">,</span> ch<span class="op">,</span> size<span class="op">);</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>        index <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Checking if character is not EOF.</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        <span class="co">// If it is EOF stop eading.</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>ch <span class="op">!=</span> EOF<span class="op">);</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Closing the file</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    fclose<span class="op">(</span>ptr<span class="op">);</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+
+</article>
+
+<!-- Footer -->
+<footer class="text-center text-white" style="background-color: rgba(0, 0, 0, 0.2);">
+    <!-- Grid container -->
+    <div class="container p-4">
+
+        <!-- Section: Text -->
+        <section class="mb-4">
+            <p>
+                These are my personal answers to the 2022 <a href="https://adventofcode.com/2022">Advent of Code</a>
+                Challenges.
+            </p>
+        </section>
+        <!-- Section: Text -->
+
+        <!-- Section: Links -->
+        <section class="mb-4">
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Featured</h5>
+
+                    <ul class="list-unstyled mb-0">
+                                                <li>
+                            <a href="/day_05.html" class="text-white">Previous
+day</a>
+                        </li>
+                                                <li>
+                            <a href="/day_07.html" class="text-white">Next
+day</a>
+                        </li>
+                                            </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Other Projects</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="https://tryhackme.jeb4.dev/" class="text-white">TryHackMe Notes</a>
+                        </li>
+                        <li>
+                            <a href="https://about.jeb4.dev/" class="text-white">Portfolio</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Contact</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a class="text-white" href="https://github.com/jeb4dev" role="button">Github</a>
+                        </li>
+                        <li>
+                            <a class="text-white" href="mailto: contact@jeb4.dev" role="button">contact@jeb4.dev</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </section>
+        <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        &copy; 2022 Jeb
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+<script>hljs.highlightAll();</script>
+
+</body>
+</html>
