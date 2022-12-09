@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content='08/12/2022'>
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"
+    ></script>
+
+    <!-- Highlight -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+    <!--  Favicon   https://icons8.com/icons/set/snowflake-emoji  -->
+    <link type="image/png" sizes="96x96" rel="icon" href="static/favicon.png">
+    <title>Day 8 - Advent of Code 2022</title>
+</head>
+<body class="bg-dark">
+<style>
+    h1 {
+        text-align: center;
+        padding: 5vh;
+        color: gold;
+    }
+
+    a {
+        color: #e91e63;
+    }
+
+    b {
+        text-shadow: 0 0 5px #aaaaaa;
+    }
+
+</style>
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <!-- Container wrapper -->
+        <div class="container-fluid ">
+
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="/">Advent of Code 2022</a>
+
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-os" role="button"
+                           data-mdb-toggle="dropdown" aria-expanded="false">
+                            All Challenges
+                        </a>
+                        <!-- Dropdown menu -->
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown-os">
+                            <li>
+                                <a class="dropdown-item" href="/day_01.html">Day 1</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_02.html">Day 2</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_03.html">Day 3</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_04.html">Day 4</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_05.html">Day 5</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_06.html">Day 6</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Optional Header Links -->
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_07.html">Previous
+day</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_09.html">Next
+day</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+</header>
+
+<article class="container text-white" style="min-height: 94vh;">
+
+    <h1>Advent of Code 2022 - Day 8</h1>
+
+    <div class="container text-center">
+        <a href="https://adventofcode.com/2022/day/6"><button type="button" class="btn btn-light me-1">Official Site</button></a>
+        <a href="#challenge"><button type="button" class="btn btn-light me-1">Challenge</button></a>
+        <a href="#solution"><button type="button" class="btn btn-danger me-1">Solution</button></a>
+    </div>
+
+    <h2 id="challenge">Challenge</h2>
+    <h3 id="day-8-treetop-tree-house">— Day 8: Treetop Tree House —</h3>
+    <p>The expedition comes across a peculiar patch of tall trees all
+    planted carefully in a grid. The Elves explain that a previous
+    expedition planted these trees as a reforestation effort. Now,
+    they’re curious if this would be a good location for a <strong>tree
+    house</strong>.</p>
+    <p>First, determine whether there is enough tree cover here to keep
+    a tree house <strong>hidden</strong>. To do this, you need to count
+    the number of trees that are <strong>visible from outside the
+    grid</strong> when looking directly along a row or column.</p>
+    <p>The Elves have already launched a <strong>quadcopter</strong> to
+    generate a map with the height of each tree (your puzzle input). For
+    example:</p>
+    <pre><code>30373
+25512
+65332
+33549
+35390</code></pre>
+    <p>Each tree is represented as a single digit whose value is its
+    height, where 0 is the shortest and 9 is the tallest.</p>
+    <p>A tree is <strong>visible</strong> if all the other trees between
+    it and an edge of the grid are <strong>shorter</strong> than it.
+    Only consider trees in the same row or column; that is, only look
+    up, down, left, or right from any given tree.</p>
+    <p>All the trees around the edge of the grid are visible - since
+    they are already on the edge, there are no trees to block the view.
+    In this example, that only leaves the <strong>interior nine
+    trees</strong> to consider:</p>
+    <ul>
+    <li>The top-left <code>5</code> is <strong>visible</strong> from the
+    left and top. (It isn’t visible from the right or bottom since other
+    trees of height <code>5</code> are in the way.)</li>
+    <li>The top-middle <code>5</code> is <strong>visible</strong> from
+    the top and right.</li>
+    <li>The top-right <code>1</code> is not visible from any direction;
+    for it to be visible, there would need to only be trees of height
+    <strong>0</strong> between it and an edge.</li>
+    <li>The left-middle <code>5</code> is <strong>visible</strong>, but
+    only from the right.</li>
+    <li>The center <code>3</code> is not visible from any direction; for
+    it to be visible, there would need to be only trees of at most
+    height <code>2</code> between it and an edge.</li>
+    <li>The right-middle <code>3</code> is <strong>visible</strong> from
+    the right.</li>
+    <li>In the bottom row, the middle <code>5</code> is
+    <strong>visible</strong>, but the <code>3</code> and <code>4</code>
+    are not.</li>
+    </ul>
+    <p>With 16 trees visible on the edge and another 5 visible in the
+    interior, a total of <strong>21</strong> trees are visible in this
+    arrangement.</p>
+    <p>Consider your map; how many trees are visible from outside the
+    grid?</p>
+    <h4 id="your-puzzle-answer-was-1859.">Your puzzle answer was
+    1859.</h4>
+    <h3 id="part-two">— Part Two —</h3>
+    <p>Content with the amount of tree cover available, the Elves just
+    need to know the best spot to build their tree house: they would
+    like to be able to see a lot of <strong>trees</strong>.</p>
+    <p>To measure the viewing distance from a given tree, look up, down,
+    left, and right from that tree; stop if you reach an edge or at the
+    first tree that is the same height or taller than the tree under
+    consideration. (If a tree is right on the edge, at least one of its
+    viewing distances will be zero.)</p>
+    <p>The Elves don’t care about distant trees taller than those found
+    by the rules above; the proposed tree house has large <em>
+    </em>eaves** to keep it dry, so they wouldn’t be able to see higher
+    than the tree house anyway.</p>
+    <p>In the example above, consider the middle <code>5</code> in the
+    second row:</p>
+    <pre><code>30373
+25512 &lt;- mid 5
+65332
+33549
+35390</code></pre>
+    <ul>
+    <li>Looking up, its view is not blocked; it can see <code>1</code>
+    tree (of height <code>3</code>).</li>
+    <li>Looking left, its view is blocked immediately; it can see only
+    <code>1</code> tree (of height <code>5</code>, right next to
+    it).</li>
+    <li>Looking right, its view is not blocked; it can see
+    <code>2</code> trees.</li>
+    <li>Looking down, its view is blocked eventually; it can see
+    <code>2</code> trees (one of height <code>3</code>, then the tree of
+    height <code>5</code> that blocks its view).</li>
+    </ul>
+    <p>A tree’s <strong>scenic score</strong> is found by
+    <strong>multiplying together</strong> its viewing distance in each
+    of the four directions. For this tree, this is <code>4</code> (found
+    by multiplying <code>1 * 1 * 2 * 2</code>).</p>
+    <p>However, you can do even better: consider the tree of height
+    <code>5</code> in the middle of the fourth row:</p>
+    <pre><code>30373
+25512
+65332
+33549 &lt;- mid 5
+35390</code></pre>
+    <ul>
+    <li>Looking up, its view is blocked at <code>2</code> trees (by
+    another tree with a height of <code>5</code>).</li>
+    <li>Looking left, its view is not blocked; it can see <code>2</code>
+    trees.</li>
+    <li>Looking down, its view is also not blocked; it can see
+    <code>1</code> tree.</li>
+    <li>Looking right, its view is blocked at <code>2</code> trees (by a
+    massive tree of height <code>9</code>).</li>
+    </ul>
+    <p>This tree’s scenic score is <strong><code>8</code></strong>
+    (<code>2 * 2 * 1 * 2</code>); this is the ideal spot for the tree
+    house.</p>
+    <p>Consider each tree on your map. <strong>What is the highest
+    scenic score possible for any tree</strong>?</p>
+    <h4 id="your-puzzle-answer-was-332640.">Your puzzle answer was
+    332640.</h4>
+    <hr />
+    <h2 id="solution">Solution</h2>
+    <p>This solution is written in <code>python</code>.</p>
+    <div class="sourceCode" id="cb4"><pre
+    class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution for Advent of Code 2022 day 8.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_columns_highest(_rows, _column):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Searches the height of the highest tree in given list of rows at given column</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">    :param _rows: range of rows of interest</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">    :type _rows: range</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">    :param _column: column of interest</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    :type _column: int</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">    :return: Height of the highest tree in given range</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">    :rtype: int</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    highest <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _row <span class="kw">in</span> _rows:</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        _tree <span class="op">=</span> <span class="bu">int</span>(lines[_row][_column])</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> _tree <span class="op">&gt;</span> highest:</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            highest <span class="op">=</span> _tree</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> highest</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_rows_highest(_row, _columns):</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">    Searches the height of the highest tree in given list of columns at given row</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">    :param _row: row of interest</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">    :type _row: int</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">    :param _columns: range of columns of interest</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">    :type _columns: range</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">    :return: Height of the highest tree in given range</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">    :rtype: int</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    highest <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _column <span class="kw">in</span> _columns:</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        _tree <span class="op">=</span> <span class="bu">int</span>(lines[_row][_column])</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> _tree <span class="op">&gt;</span> highest:</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>            highest <span class="op">=</span> _tree</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> highest</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> viewing_distance_column(_rows, _column, max_height):</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">    Calculates the view distance from tree.</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">    &lt;p&gt;e.g. How many trees in given direction of column are smaller than max_height.&lt;/p&gt;</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">    :param _rows: range of rows of interest</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">    :type _rows: range</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">    :param _column: column of interest</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">    :type _column: int</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">    :param max_height: The height of current tree</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co">    :type max_height: int</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co">    :return: View distance for given direction</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">    :rtype: int</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    _viewing_distance <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _row <span class="kw">in</span> _rows:</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        _viewing_distance <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        _tree <span class="op">=</span> <span class="bu">int</span>(lines[_row][_column])</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> _tree <span class="op">&gt;=</span> max_height:</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> _viewing_distance</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _viewing_distance</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> viewing_distance_row(_row, _columns, max_height):</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="co">    Calculates the view distance from tree.</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="co">    &lt;p&gt;e.g. How many trees in given direction of column are smaller than max_height.&lt;/p&gt;</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="co">    :param _row: row of interest</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="co">    :type _row: int</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="co">    :param _columns: range of columns of interest</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="co">    :type _columns: range</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="co">    :param max_height: The height of current tree</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="co">    :type max_height: int</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="co">    :return: View distance for given direction</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="co">    :rtype: int</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    _viewing_distance <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _column <span class="kw">in</span> _columns:</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>        _viewing_distance<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>        _tree <span class="op">=</span> <span class="bu">int</span>(lines[_row][_column])</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> _tree <span class="op">&gt;=</span> max_height:</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> _viewing_distance</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _viewing_distance</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> []</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>top_viewing_distance <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="co"># Read input file</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;../input.txt&quot;</span>, <span class="st">&quot;r&quot;</span>) <span class="im">as</span> data:</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add each row to list of rows</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> data.readlines():</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>        lines.append(row)</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Amount of columns and rows</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>    columns <span class="op">=</span> <span class="bu">len</span>(lines[<span class="dv">0</span>])<span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> <span class="bu">len</span>(lines)</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>    visible <span class="op">=</span> columns <span class="op">*</span> <span class="dv">2</span> <span class="co"># Top and Bottom rows</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loop through each tree that is not at the edge</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, rows <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>        visible <span class="op">+=</span> <span class="dv">2</span>  <span class="co"># Both Sides</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> column <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, columns <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>            tree <span class="op">=</span> <span class="bu">int</span>(lines[row][column]) <span class="co"># Current tree height</span></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Get the highest tree in each direction</span></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>            top_up <span class="op">=</span> get_columns_highest(<span class="bu">range</span>(<span class="dv">0</span>,row), column)</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>            top_btn <span class="op">=</span> get_columns_highest(<span class="bu">range</span>(row<span class="op">+</span><span class="dv">1</span>, rows), column)</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>            top_left <span class="op">=</span> get_rows_highest(row, <span class="bu">range</span>(<span class="dv">0</span>, column))</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>            top_right <span class="op">=</span> get_rows_highest(row, <span class="bu">range</span>(column<span class="op">+</span><span class="dv">1</span>, columns))</span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If three height is lower that highest tree in any direction it is visible</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> tree <span class="op">&gt;</span> top_up <span class="kw">or</span> tree <span class="op">&gt;</span> top_btn <span class="kw">or</span> tree <span class="op">&gt;</span> top_left <span class="kw">or</span> tree <span class="op">&gt;</span> top_right:</span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>                visible <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Part II</span></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Get viewing distances for each direction</span></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>            wd_up <span class="op">=</span> viewing_distance_column(<span class="bu">range</span>(row<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>), column, tree)</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>            wd_btn <span class="op">=</span> viewing_distance_column(<span class="bu">range</span>(row <span class="op">+</span> <span class="dv">1</span>, rows), column, tree)</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>            wd_left <span class="op">=</span> viewing_distance_row(row, <span class="bu">range</span>(column<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>), tree)</span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>            wd_right <span class="op">=</span> viewing_distance_row(row, <span class="bu">range</span>(column <span class="op">+</span> <span class="dv">1</span>, columns), tree)</span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Calculate viewing distance</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>            viewing_distance <span class="op">=</span> wd_up <span class="op">*</span> wd_btn <span class="op">*</span> wd_right <span class="op">*</span>wd_left</span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Update if new highest</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> viewing_distance <span class="op">&gt;</span> top_viewing_distance:</span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>                top_viewing_distance <span class="op">=</span> viewing_distance</span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Printing the results</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;Part I </span><span class="sc">{</span>visible<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;Part II </span><span class="sc">{</span>top_viewing_distance<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+
+</article>
+
+<!-- Footer -->
+<footer class="text-center text-white" style="background-color: rgba(0, 0, 0, 0.2);">
+    <!-- Grid container -->
+    <div class="container p-4">
+
+        <!-- Section: Text -->
+        <section class="mb-4">
+            <p>
+                These are my personal answers to the 2022 <a href="https://adventofcode.com/2022">Advent of Code</a>
+                Challenges.
+            </p>
+        </section>
+        <!-- Section: Text -->
+
+        <!-- Section: Links -->
+        <section class="mb-4">
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Featured</h5>
+
+                    <ul class="list-unstyled mb-0">
+                                                <li>
+                            <a href="/day_07.html" class="text-white">Previous
+day</a>
+                        </li>
+                                                <li>
+                            <a href="/day_09.html" class="text-white">Next
+day</a>
+                        </li>
+                                            </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Other Projects</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="https://tryhackme.jeb4.dev/" class="text-white">TryHackMe Notes</a>
+                        </li>
+                        <li>
+                            <a href="https://about.jeb4.dev/" class="text-white">Portfolio</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Contact</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a class="text-white" href="https://github.com/jeb4dev" role="button">Github</a>
+                        </li>
+                        <li>
+                            <a class="text-white" href="mailto: contact@jeb4.dev" role="button">contact@jeb4.dev</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </section>
+        <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        &copy; 2022 Jeb
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+<script>hljs.highlightAll();</script>
+
+</body>
+</html>
