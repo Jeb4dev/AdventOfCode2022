@@ -3,7 +3,7 @@ title: Day 8 - Advent of Code 2022
 date: 08/12/2022
 author: Jeb
 h1: Advent of Code 2022 - Day 8
-href: https://adventofcode.com/2022/day/6
+href: https://adventofcode.com/2022/day/8
 
 HeaderLink:
 
