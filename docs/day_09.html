@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content='09/12/2022'>
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"
+    ></script>
+
+    <!-- Highlight -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+    <!--  Favicon   https://icons8.com/icons/set/snowflake-emoji  -->
+    <link type="image/png" sizes="96x96" rel="icon" href="static/favicon.png">
+    <title>Day 9 - Advent of Code 2022</title>
+</head>
+<body class="bg-dark">
+<style>
+    h1 {
+        text-align: center;
+        padding: 5vh;
+        color: gold;
+    }
+
+    a {
+        color: #e91e63;
+    }
+
+    b {
+        text-shadow: 0 0 5px #aaaaaa;
+    }
+
+</style>
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <!-- Container wrapper -->
+        <div class="container-fluid ">
+
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="/">Advent of Code 2022</a>
+
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-os" role="button"
+                           data-mdb-toggle="dropdown" aria-expanded="false">
+                            All Challenges
+                        </a>
+                        <!-- Dropdown menu -->
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown-os">
+                            <li>
+                                <a class="dropdown-item" href="/day_01.html">Day 1</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_02.html">Day 2</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_03.html">Day 3</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_04.html">Day 4</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_05.html">Day 5</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/day_06.html">Day 6</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Optional Header Links -->
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_08.html">Previous
+day</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_10.html">Next
+day</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+</header>
+
+<article class="container text-white" style="min-height: 94vh;">
+
+    <h1>Advent of Code 2022 - Day 9</h1>
+
+    <div class="container text-center">
+        <a href="https://adventofcode.com/2022/day/9"><button type="button" class="btn btn-light me-1">Official Site</button></a>
+        <a href="#challenge"><button type="button" class="btn btn-light me-1">Challenge</button></a>
+        <a href="#solution"><button type="button" class="btn btn-danger me-1">Solution</button></a>
+    </div>
+
+    <h2 id="challenge">Challenge</h2>
+    <h3 id="day-8-rope-bridge">— Day 8: Rope Bridge —</h3>
+    <p>This rope bridge creaks as you walk along it. You aren’t sure how
+    old it is, or whether it can even support your weight.</p>
+    <p>It seems to support the Elves just fine, though. The bridge spans
+    a gorge which was carved out by the massive river far below you.</p>
+    <p>You step carefully; as you do, the ropes stretch and twist. You
+    decide to distract yourself by modeling rope physics; maybe you can
+    even figure out where <strong>not</strong> to step.</p>
+    <p>Consider a rope with a knot at each end; these knots mark the
+    <code>head</code> and the <code>tail</code> of the rope. If the head
+    moves far enough away from the tail, the tail is pulled toward the
+    head.</p>
+    <p>Due to nebulous reasoning involving <strong>Planck
+    lengths</strong>, you should be able to model the positions of the
+    knots on a two-dimensional grid. Then, by following a hypothetical
+    <strong>series of motions</strong> (your puzzle input) for the head,
+    you can determine how the tail will move.</p>
+    <p>Due to the aforementioned Planck lengths, the rope must be quite
+    short; in fact, the head (<code>H</code>) and tail (<code>T</code>)
+    must <strong>always be touching</strong> (diagonally adjacent and
+    even overlapping both count as touching):</p>
+    <pre><code>....
+.TH.
+....
+
+....
+.H..
+..T.
+....
+
+...
+.H. (H covers T)
+...</code></pre>
+    <p>If the head is ever two steps directly up, down, left, or right
+    from the tail, the tail must also move one step in that direction so
+    it remains close enough:</p>
+    <pre><code>.....    .....    .....
+.TH.. -&gt; .T.H. -&gt; ..TH.
+.....    .....    .....
+
+...    ...    ...
+.T.    .T.    ...
+.H. -&gt; ... -&gt; .T.
+...    .H.    .H.
+...    ...    ...</code></pre>
+    <p>Otherwise, if the head and tail aren’t touching and aren’t in the
+    same row or column, the tail always moves one step diagonally to
+    keep up:</p>
+    <pre><code>.....    .....    .....
+.....    ..H..    ..H..
+..H.. -&gt; ..... -&gt; ..T..
+.T...    .T...    .....
+.....    .....    .....
+
+.....    .....    .....
+.....    .....    .....
+..H.. -&gt; ...H. -&gt; ..TH.
+.T...    .T...    .....
+.....    .....    .....</code></pre>
+    <p>You just need to work out where the tail goes as the head follows
+    a series of motions. Assume the head and the tail both start at the
+    same position, overlapping.</p>
+    <p>For example:</p>
+    <pre><code>R 4
+U 4
+L 3
+D 1
+R 4
+D 1
+L 5
+R 2</code></pre>
+    <p>This series of motions moves the head <strong>right</strong> four
+    steps, then <strong>up</strong> four steps, then
+    <strong>left</strong> three steps, then <strong>down</strong> one
+    step, and so on. After each step, you’ll need to update the position
+    of the tail if the step means the head is no longer adjacent to the
+    tail. Visually, these motions occur as follows (<code>s</code> marks
+    the starting position as a reference point):</p>
+    <pre><code>== Initial State ==
+
+......
+......
+......
+......
+H.....  (H covers T, s)
+
+== R 4 ==
+
+......
+......
+......
+......
+TH....  (T covers s)
+
+......
+......
+......
+......
+sTH...
+
+......
+......
+......
+......
+s.TH..
+
+......
+......
+......
+......
+s..TH.
+
+== U 4 ==
+
+......
+......
+......
+....H.
+s..T..
+
+......
+......
+....H.
+....T.
+s.....
+
+......
+....H.
+....T.
+......
+s.....
+
+....H.
+....T.
+......
+......
+s.....
+
+== L 3 ==
+
+...H..
+....T.
+......
+......
+s.....
+
+..HT..
+......
+......
+......
+s.....
+
+.HT...
+......
+......
+......
+s.....
+
+== D 1 ==
+
+..T...
+.H....
+......
+......
+s.....
+
+== R 4 ==
+
+..T...
+..H...
+......
+......
+s.....
+
+..T...
+...H..
+......
+......
+s.....
+
+......
+...TH.
+......
+......
+s.....
+
+......
+....TH
+......
+......
+s.....
+
+== D 1 ==
+
+......
+....T.
+.....H
+......
+s.....
+
+== L 5 ==
+
+......
+....T.
+....H.
+......
+s.....
+
+......
+....T.
+...H..
+......
+s.....
+
+......
+......
+..HT..
+......
+s.....
+
+......
+......
+.HT...
+......
+s.....
+
+......
+......
+HT....
+......
+s.....
+
+== R 2 ==
+
+......
+......
+.H....  (H covers T)
+......
+s.....
+
+......
+......
+.TH...
+......
+s.....</code></pre>
+    <p>After simulating the rope, you can count up all the positions the
+    <strong>tail visited at least once</strong>. In this diagram,
+    <code>s</code> again marks the starting position (which the tail
+    also visited) and <code>#</code> marks other positions the tail
+    visited:</p>
+    <pre><code>..##..
+...##.
+.####.
+....#.
+s###..</code></pre>
+    <p>So, there are 13 positions the tail visited at least once.</p>
+    <p>Simulate your complete hypothetical series of motions.
+    <strong>How many positions does the tail of the rope visit at least
+    once</strong>?</p>
+    <h4 id="your-puzzle-answer-was-xxx.">Your puzzle answer was
+    XXX.</h4>
+    <h3 id="part-two">— Part Two —</h3>
+    <p>Content with the amount of tree cover available, the Elves just
+    need to know the best spot to build their tree house: they would
+    like to be able to see a lot of <strong>trees</strong>.</p>
+    <p>To measure the viewing distance from a given tree, look up, down,
+    left, and right from that tree; stop if you reach an edge or at the
+    first tree that is the same height or taller than the tree under
+    consideration. (If a tree is right on the edge, at least one of its
+    viewing distances will be zero.)</p>
+    <p>The Elves don’t care about distant trees taller than those found
+    by the rules above; the proposed tree house has large <em>
+    </em>eaves** to keep it dry, so they wouldn’t be able to see higher
+    than the tree house anyway.</p>
+    <p>In the example above, consider the middle <code>5</code> in the
+    second row:</p>
+    <pre><code>30373
+25512 &lt;- mid 5
+65332
+33549
+35390</code></pre>
+    <ul>
+    <li>Looking up, its view is not blocked; it can see <code>1</code>
+    tree (of height <code>3</code>).</li>
+    <li>Looking left, its view is blocked immediately; it can see only
+    <code>1</code> tree (of height <code>5</code>, right next to
+    it).</li>
+    <li>Looking right, its view is not blocked; it can see
+    <code>2</code> trees.</li>
+    <li>Looking down, its view is blocked eventually; it can see
+    <code>2</code> trees (one of height <code>3</code>, then the tree of
+    height <code>5</code> that blocks its view).</li>
+    </ul>
+    <p>A tree’s <strong>scenic score</strong> is found by
+    <strong>multiplying together</strong> its viewing distance in each
+    of the four directions. For this tree, this is <code>4</code> (found
+    by multiplying <code>1 * 1 * 2 * 2</code>).</p>
+    <p>However, you can do even better: consider the tree of height
+    <code>5</code> in the middle of the fourth row:</p>
+    <pre><code>30373
+25512
+65332
+33549 &lt;- mid 5
+35390</code></pre>
+    <ul>
+    <li>Looking up, its view is blocked at <code>2</code> trees (by
+    another tree with a height of <code>5</code>).</li>
+    <li>Looking left, its view is not blocked; it can see <code>2</code>
+    trees.</li>
+    <li>Looking down, its view is also not blocked; it can see
+    <code>1</code> tree.</li>
+    <li>Looking right, its view is blocked at <code>2</code> trees (by a
+    massive tree of height <code>9</code>).</li>
+    </ul>
+    <p>This tree’s scenic score is <strong><code>8</code></strong>
+    (<code>2 * 2 * 1 * 2</code>); this is the ideal spot for the tree
+    house.</p>
+    <p>Consider each tree on your map. <strong>What is the highest
+    scenic score possible for any tree</strong>?</p>
+    <h4 id="your-puzzle-answer-was-xxx.-1">Your puzzle answer was
+    XXX.</h4>
+    <h3 id="part-ii">Part II</h3>
+    <hr />
+    <h2 id="solution">Solution</h2>
+    <p>This solution is written in <code>?</code>.</p>
+    <div class="sourceCode" id="cb9"><pre
+    class="sourceCode python"><code class="sourceCode python"></code></pre></div>
+
+</article>
+
+<!-- Footer -->
+<footer class="text-center text-white" style="background-color: rgba(0, 0, 0, 0.2);">
+    <!-- Grid container -->
+    <div class="container p-4">
+
+        <!-- Section: Text -->
+        <section class="mb-4">
+            <p>
+                These are my personal answers to the 2022 <a href="https://adventofcode.com/2022">Advent of Code</a>
+                Challenges.
+            </p>
+        </section>
+        <!-- Section: Text -->
+
+        <!-- Section: Links -->
+        <section class="mb-4">
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Featured</h5>
+
+                    <ul class="list-unstyled mb-0">
+                                                <li>
+                            <a href="/day_08.html" class="text-white">Previous
+day</a>
+                        </li>
+                                                <li>
+                            <a href="/day_10.html" class="text-white">Next
+day</a>
+                        </li>
+                                            </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Other Projects</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="https://tryhackme.jeb4.dev/" class="text-white">TryHackMe Notes</a>
+                        </li>
+                        <li>
+                            <a href="https://about.jeb4.dev/" class="text-white">Portfolio</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Contact</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a class="text-white" href="https://github.com/jeb4dev" role="button">Github</a>
+                        </li>
+                        <li>
+                            <a class="text-white" href="mailto: contact@jeb4.dev" role="button">contact@jeb4.dev</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </section>
+        <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        &copy; 2022 Jeb
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+<script>hljs.highlightAll();</script>
+
+</body>
+</html>
