@@ -26,35 +26,36 @@ I took that bit too literal and aim to solve each challenge with different progr
 
 ## Solution
 
-| Day               | Language         | Rating of the language |
-|-------------------|------------------|------------------------|
-| [1](day_01.html)  | Python           | ★★★★★                  |
-| [2](day_02.html)  | Python           | ★★★★★                  |
-| [3](day_03.html)  | Go               | ★★★★☆                  |
-| [4](day_04.html)  | Ruby             | ★★★☆☆                  |
-| [5](day_05.html)  | Visual Basic     | ★★☆☆☆                  |
-| [6](day_06.html)  | C / Assembly x86 | ★★☆☆☆ /   ★☆☆☆☆        |
-| [7](day_07.html)  | Bash             | ★★☆☆☆                  |
-| [8](day_08.html)  | Python           | ★★★★★                  |
-| [9](day_09.html)  |                  |                        |
-| [10](day_10.html) |                  |                        |
-| [11](day_11.html) |                  |                        |
-| [12](day_12.html) |                  |                        |
-| [13](day_13.html) |                  |                        |
-| [14](day_14.html) |                  |                        |
-| [15](day_15.html) |                  |                        |
-| [16](day_16.html) |                  |                        |
-| [17](day_17.html) |                  |                        |
-| [18](day_18.html) |                  |                        |
-| [19](day_19.html) |                  |                        |
-| [20](day_20.html) |                  |                        |
-| [21](day_21.html) |                  |                        |
-| [22](day_22.html) |                  |                        |
-| [23](day_23.html) |                  |                        |
-| [24](day_24.html) |                  |                        |
-| [25](day_25.html) |                  |                        |
+| Day                   | Language         | Rating of the language |
+|-----------------------|------------------|------------------------|
+| [day 1](day_01.html)  | Python           | ★★★★★                  |
+| [day 2](day_02.html)  | Python           | ★★★★★                  |
+| [day 3](day_03.html)  | Go               | ★★★★☆                  |
+| [day 4](day_04.html)  | Ruby             | ★★★☆☆                  |
+| [day 5](day_05.html)  | Visual Basic     | ★★☆☆☆                  |
+| [day 6](day_06.html)  | C / Assembly x86 | ★★☆☆☆ /   ★☆☆☆☆        |
+| [day 7](day_07.html)  | Bash             | ★★☆☆☆                  |
+| [day 8](day_08.html)  | Python           | ★★★★★                  |
+| [day 9](day_09.html)  |                  |                        |
+| [day 10](day_10.html) |                  |                        |
+| [day 11](day_11.html) |                  |                        |
+| [day 12](day_12.html) |                  |                        |
+| [day 13](day_13.html) |                  |                        |
+| [day 14](day_14.html) |                  |                        |
+| [day 15](day_15.html) |                  |                        |
+| [day 16](day_16.html) |                  |                        |
+| [day 17](day_17.html) |                  |                        |
+| [day 18](day_18.html) |                  |                        |
+| [day 19](day_19.html) |                  |                        |
+| [day 20](day_20.html) |                  |                        |
+| [day 21](day_21.html) |                  |                        |
+| [day 22](day_22.html) |                  |                        |
+| [day 23](day_23.html) |                  |                        |
+| [day 24](day_24.html) |                  |                        |
+| [day 25](day_25.html) |                  |                        |
 
 Language ideas:
+
 - Rust
 - C++
 - Carbon
