@@ -129,7 +129,7 @@ day</a>
     </div>
 
     <h2 id="challenge">Challenge</h2>
-    <h3 id="day-8-rope-bridge">— Day 8: Rope Bridge —</h3>
+    <h3 id="day-9-rope-bridge">— Day 9: Rope Bridge —</h3>
     <p>This rope bridge creaks as you walk along it. You aren’t sure how
     old it is, or whether it can even support your weight.</p>
     <p>It seems to support the Elves just fine, though. The bridge spans
@@ -391,70 +391,12 @@ s###..</code></pre>
     <h4 id="your-puzzle-answer-was-xxx.">Your puzzle answer was
     XXX.</h4>
     <h3 id="part-two">— Part Two —</h3>
-    <p>Content with the amount of tree cover available, the Elves just
-    need to know the best spot to build their tree house: they would
-    like to be able to see a lot of <strong>trees</strong>.</p>
-    <p>To measure the viewing distance from a given tree, look up, down,
-    left, and right from that tree; stop if you reach an edge or at the
-    first tree that is the same height or taller than the tree under
-    consideration. (If a tree is right on the edge, at least one of its
-    viewing distances will be zero.)</p>
-    <p>The Elves don’t care about distant trees taller than those found
-    by the rules above; the proposed tree house has large <em>
-    </em>eaves** to keep it dry, so they wouldn’t be able to see higher
-    than the tree house anyway.</p>
-    <p>In the example above, consider the middle <code>5</code> in the
-    second row:</p>
-    <pre><code>30373
-25512 &lt;- mid 5
-65332
-33549
-35390</code></pre>
-    <ul>
-    <li>Looking up, its view is not blocked; it can see <code>1</code>
-    tree (of height <code>3</code>).</li>
-    <li>Looking left, its view is blocked immediately; it can see only
-    <code>1</code> tree (of height <code>5</code>, right next to
-    it).</li>
-    <li>Looking right, its view is not blocked; it can see
-    <code>2</code> trees.</li>
-    <li>Looking down, its view is blocked eventually; it can see
-    <code>2</code> trees (one of height <code>3</code>, then the tree of
-    height <code>5</code> that blocks its view).</li>
-    </ul>
-    <p>A tree’s <strong>scenic score</strong> is found by
-    <strong>multiplying together</strong> its viewing distance in each
-    of the four directions. For this tree, this is <code>4</code> (found
-    by multiplying <code>1 * 1 * 2 * 2</code>).</p>
-    <p>However, you can do even better: consider the tree of height
-    <code>5</code> in the middle of the fourth row:</p>
-    <pre><code>30373
-25512
-65332
-33549 &lt;- mid 5
-35390</code></pre>
-    <ul>
-    <li>Looking up, its view is blocked at <code>2</code> trees (by
-    another tree with a height of <code>5</code>).</li>
-    <li>Looking left, its view is not blocked; it can see <code>2</code>
-    trees.</li>
-    <li>Looking down, its view is also not blocked; it can see
-    <code>1</code> tree.</li>
-    <li>Looking right, its view is blocked at <code>2</code> trees (by a
-    massive tree of height <code>9</code>).</li>
-    </ul>
-    <p>This tree’s scenic score is <strong><code>8</code></strong>
-    (<code>2 * 2 * 1 * 2</code>); this is the ideal spot for the tree
-    house.</p>
-    <p>Consider each tree on your map. <strong>What is the highest
-    scenic score possible for any tree</strong>?</p>
     <h4 id="your-puzzle-answer-was-xxx.-1">Your puzzle answer was
     XXX.</h4>
-    <h3 id="part-ii">Part II</h3>
     <hr />
     <h2 id="solution">Solution</h2>
     <p>This solution is written in <code>?</code>.</p>
-    <div class="sourceCode" id="cb9"><pre
+    <div class="sourceCode" id="cb7"><pre
     class="sourceCode python"><code class="sourceCode python"></code></pre></div>
 
 </article>
