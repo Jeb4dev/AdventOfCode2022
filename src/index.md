@@ -38,7 +38,7 @@ I took that bit too literal and aim to solve each challenge with different progr
 | [day 8](day_08.html)  | Python           | ★★★★★                  |
 | [day 9](day_09.html)  |                  |                        |
 | [day 10](day_10.html) | PHP              | ★★★★☆                  |
-| [day 11](day_11.html) |                  |                        |
+| [day 11](day_11.html) | R                | ★★★☆☆                  |
 | [day 12](day_12.html) |                  |                        |
 | [day 13](day_13.html) |                  |                        |
 | [day 14](day_14.html) |                  |                        |
@@ -78,7 +78,7 @@ I took that bit too literal and aim to solve each challenge with different progr
 20. Pascal 
 21. Pearl 
 22. ~~Python~~ 
-23. R
+23. ~~R~~
 24. ~~Ruby~~
 25. Rust 
 26. SQL 
