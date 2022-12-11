@@ -129,16 +129,472 @@ day</a>
     </div>
 
     <h2 id="challenge">Challenge</h2>
-    <h3 id="day-10">— Day 10: —</h3>
-    <h4 id="your-puzzle-answer-was-xxx.">Your puzzle answer was
-    XXX.</h4>
+    <h3 id="day-10-cathode-ray-tube">— Day 10: Cathode-Ray Tube —</h3>
+    <p>You avoid the ropes, plunge into the river, and swim to
+    shore.</p>
+    <p>The Elves yell something about meeting back up with them upriver,
+    but the river is too loud to tell exactly what they’re saying. They
+    finish crossing the bridge and disappear from view.</p>
+    <p>Situations like this must be why the Elves prioritized getting
+    the communication system on your handheld device working. You pull
+    it out of your pack, but the amount of water slowly draining from a
+    big crack in its screen tells you it probably won’t be of much
+    immediate use.</p>
+    <p><strong>Unless</strong>, that is, you can design a replacement
+    for the device’s video system! It seems to be some kind of
+    cathode-ray tube screen and simple CPU that are both driven by a
+    precise <strong>clock circuit</strong>. The clock circuit ticks at a
+    constant rate; each tick is called a <strong>cycle</strong>.</p>
+    <p>Start by figuring out the signal being sent by the CPU. The CPU
+    has a single register, <code>X</code>, which starts with the value
+    <code>1</code>. It supports only two instructions:</p>
+    <ul>
+    <li><code>addx V</code> takes <strong>two cycles</strong> to
+    complete. <strong>After</strong> two cycles, the <code>X</code>
+    register is increased by the value <code>V</code>. (<code>V</code>
+    can be negative.)</li>
+    <li><code>noop</code> takes <strong>one cycle</strong> to complete.
+    It has no other effect.</li>
+    </ul>
+    <p>The CPU uses these instructions in a program (your puzzle input)
+    to, somehow, tell the screen what to draw.</p>
+    <p>Consider the following small program:</p>
+    <pre><code>noop
+addx 3
+addx -5</code></pre>
+    <p>Execution of this program proceeds as follows:</p>
+    <ul>
+    <li>At the start of the first cycle, the <code>noop</code>
+    instruction begins execution. During the first cycle, <code>X</code>
+    is <code>1</code>. After the first cycle, the noop instruction
+    finishes execution, doing nothing.</li>
+    <li>At the start of the second cycle, the <code>addx 3</code>
+    instruction begins execution. During the second cycle,
+    <code>X</code> is still <code>1</code>.</li>
+    <li>During the third cycle, X is still 1. After the third cycle, the
+    <code>addx 3</code> instruction finishes execution, setting
+    <code>X</code> to <code>4</code>.</li>
+    <li>At the start of the fourth cycle, the <code>addx -5</code>
+    instruction begins execution. During the fourth cycle,
+    <code>X</code> is still <code>4</code>.</li>
+    <li>During the fifth cycle, <code>X</code> is still <code>4</code>.
+    After the fifth cycle, the <code>addx -5</code> instruction finishes
+    execution, setting <code>X</code> to <code>-1</code>.</li>
+    </ul>
+    <p>Maybe you can learn something by looking at the value of the
+    <code>X</code> register throughout execution. For now, consider the
+    <strong>signal strength</strong> (the cycle number multiplied by the
+    value of the <code>X</code> register) <strong>during</strong> the
+    20th cycle and every 40 cycles after that (that is, during the 20th,
+    60th, 100th, 140th, 180th, and 220th cycles).</p>
+    <p>For example, consider this larger program:</p>
+    <pre><code>addx 15
+addx -11
+addx 6
+addx -3
+addx 5
+addx -1
+addx -8
+addx 13
+addx 4
+noop
+addx -1
+addx 5
+addx -1
+addx 5
+addx -1
+addx 5
+addx -1
+addx 5
+addx -1
+addx -35
+addx 1
+addx 24
+addx -19
+addx 1
+addx 16
+addx -11
+noop
+noop
+addx 21
+addx -15
+noop
+noop
+addx -3
+addx 9
+addx 1
+addx -3
+addx 8
+addx 1
+addx 5
+noop
+noop
+noop
+noop
+noop
+addx -36
+noop
+addx 1
+addx 7
+noop
+noop
+noop
+addx 2
+addx 6
+noop
+noop
+noop
+noop
+noop
+addx 1
+noop
+noop
+addx 7
+addx 1
+noop
+addx -13
+addx 13
+addx 7
+noop
+addx 1
+addx -33
+noop
+noop
+noop
+addx 2
+noop
+noop
+noop
+addx 8
+noop
+addx -1
+addx 2
+addx 1
+noop
+addx 17
+addx -9
+addx 1
+addx 1
+addx -3
+addx 11
+noop
+noop
+addx 1
+noop
+addx 1
+noop
+noop
+addx -13
+addx -19
+addx 1
+addx 3
+addx 26
+addx -30
+addx 12
+addx -1
+addx 3
+addx 1
+noop
+noop
+noop
+addx -9
+addx 18
+addx 1
+addx 2
+noop
+noop
+addx 9
+noop
+noop
+noop
+addx -1
+addx 2
+addx -37
+addx 1
+addx 3
+noop
+addx 15
+addx -21
+addx 22
+addx -6
+addx 1
+noop
+addx 2
+addx 1
+noop
+addx -10
+noop
+noop
+addx 20
+addx 1
+addx 2
+addx 2
+addx -6
+addx -11
+noop
+noop
+noop</code></pre>
+    <p>The interesting signal strengths can be determined as
+    follows:</p>
+    <ul>
+    <li>During the 20th cycle, register <code>X</code> has the value
+    <code>21</code>, so the signal strength is 20 * 21 =
+    <strong>420</strong>. (The 20th cycle occurs in the middle of the
+    second <code>addx -1</code>, so the value of register <code>X</code>
+    is the starting value, <strong>1</strong>, plus all the other
+    <code>addx</code> values up to that point: 1 + 15 - 11 + 6 - 3 + 5 -
+    1 - 8 + 13 + 4 = 21.)</li>
+    <li>During the 60th cycle, register <code>X</code> has the value
+    <code>19</code>, so the signal strength is 60 * 19 =
+    <strong>1140</strong>.</li>
+    <li>During the 100th cycle, register <code>X</code> has the value
+    <code>18</code>, so the signal strength is 100 * 18 =
+    <strong>1800</strong>.</li>
+    <li>During the 140th cycle, register <code>X</code> has the value
+    <code>21</code>, so the signal strength is 140 * 21 =
+    <strong>2940</strong>.</li>
+    <li>During the 180th cycle, register <code>X</code> has the value
+    <code>16</code>, so the signal strength is 180 * 16 =
+    <strong>2880</strong>.</li>
+    <li>During the 220th cycle, register <code>X</code> has the value
+    <code>18</code>, so the signal strength is 220 * 18 =
+    <strong>3960</strong>.</li>
+    </ul>
+    <p>The sum of these signal strengths is <strong>13140</strong>.</p>
+    <p>Find the signal strength during the 20th, 60th, 100th, 140th,
+    180th, and 220th cycles. <strong>What is the sum of these six signal
+    strengths?</strong></p>
+    <h4 id="your-puzzle-answer-was-12460.">Your puzzle answer was
+    12460.</h4>
     <h3 id="part-two">— Part Two —</h3>
-    <h4 id="your-puzzle-answer-was-xxx.-1">Your puzzle answer was
-    XXX.</h4>
+    <p>It seems like the <code>X</code> register controls the horizontal
+    position of a sprite. Specifically, the sprite is 3 pixels wide, and
+    the <code>X</code> register sets the horizontal position of the
+    <strong>middle</strong> of that sprite. (In this system, there is no
+    such thing as “vertical position”: if the sprite’s horizontal
+    position puts its pixels where the CRT is currently drawing, then
+    those pixels will be drawn.)</p>
+    <p>You count the pixels on the CRT: 40 wide and 6 high. This CRT
+    screen draws the top row of pixels left-to-right, then the row below
+    that, and so on. The left-most pixel in each row is in position
+    <code>0</code>, and the right-most pixel in each row is in position
+    <code>39</code>.</p>
+    <p>Like the CPU, the CRT is tied closely to the clock circuit: the
+    CRT draws <strong>a single pixel during each cycle</strong>.
+    Representing each pixel of the screen as a <code>#,</code> here are
+    the cycles during which the first and last pixel in each row are
+    drawn:</p>
+    <pre><code>Cycle   1 -&gt; ######################################## &lt;- Cycle  40
+Cycle  41 -&gt; ######################################## &lt;- Cycle  80
+Cycle  81 -&gt; ######################################## &lt;- Cycle 120
+Cycle 121 -&gt; ######################################## &lt;- Cycle 160
+Cycle 161 -&gt; ######################################## &lt;- Cycle 200
+Cycle 201 -&gt; ######################################## &lt;- Cycle 240</code></pre>
+    <p>So, by carefully timing the CPU instructions and the CRT drawing
+    operations, you should be able to determine whether the sprite is
+    visible the instant each pixel is drawn. If the sprite is positioned
+    such that one of its three pixels is the pixel currently being
+    drawn, the screen produces a <strong>lit</strong> pixel
+    (<code>#</code>); otherwise, the screen leaves the pixel
+    <strong>dark</strong> (<code>.</code>).</p>
+    <p>The first few pixels from the larger example above are drawn as
+    follows:</p>
+    <pre><code>Sprite position: ###.....................................
+
+Start cycle   1: begin executing addx 15
+During cycle  1: CRT draws pixel in position 0
+Current CRT row: #
+
+During cycle  2: CRT draws pixel in position 1
+Current CRT row: ##
+End of cycle  2: finish executing addx 15 (Register X is now 16)
+Sprite position: ...............###......................
+
+Start cycle   3: begin executing addx -11
+During cycle  3: CRT draws pixel in position 2
+Current CRT row: ##.
+
+During cycle  4: CRT draws pixel in position 3
+Current CRT row: ##..
+End of cycle  4: finish executing addx -11 (Register X is now 5)
+Sprite position: ....###.................................
+
+Start cycle   5: begin executing addx 6
+During cycle  5: CRT draws pixel in position 4
+Current CRT row: ##..#
+
+During cycle  6: CRT draws pixel in position 5
+Current CRT row: ##..##
+End of cycle  6: finish executing addx 6 (Register X is now 11)
+Sprite position: ..........###...........................
+
+Start cycle   7: begin executing addx -3
+During cycle  7: CRT draws pixel in position 6
+Current CRT row: ##..##.
+
+During cycle  8: CRT draws pixel in position 7
+Current CRT row: ##..##..
+End of cycle  8: finish executing addx -3 (Register X is now 8)
+Sprite position: .......###..............................
+
+Start cycle   9: begin executing addx 5
+During cycle  9: CRT draws pixel in position 8
+Current CRT row: ##..##..#
+
+During cycle 10: CRT draws pixel in position 9
+Current CRT row: ##..##..##
+End of cycle 10: finish executing addx 5 (Register X is now 13)
+Sprite position: ............###.........................
+
+Start cycle  11: begin executing addx -1
+During cycle 11: CRT draws pixel in position 10
+Current CRT row: ##..##..##.
+
+During cycle 12: CRT draws pixel in position 11
+Current CRT row: ##..##..##..
+End of cycle 12: finish executing addx -1 (Register X is now 12)
+Sprite position: ...........###..........................
+
+Start cycle  13: begin executing addx -8
+During cycle 13: CRT draws pixel in position 12
+Current CRT row: ##..##..##..#
+
+During cycle 14: CRT draws pixel in position 13
+Current CRT row: ##..##..##..##
+End of cycle 14: finish executing addx -8 (Register X is now 4)
+Sprite position: ...###..................................
+
+Start cycle  15: begin executing addx 13
+During cycle 15: CRT draws pixel in position 14
+Current CRT row: ##..##..##..##.
+
+During cycle 16: CRT draws pixel in position 15
+Current CRT row: ##..##..##..##..
+End of cycle 16: finish executing addx 13 (Register X is now 17)
+Sprite position: ................###.....................
+
+Start cycle  17: begin executing addx 4
+During cycle 17: CRT draws pixel in position 16
+Current CRT row: ##..##..##..##..#
+
+During cycle 18: CRT draws pixel in position 17
+Current CRT row: ##..##..##..##..##
+End of cycle 18: finish executing addx 4 (Register X is now 21)
+Sprite position: ....................###.................
+
+Start cycle  19: begin executing noop
+During cycle 19: CRT draws pixel in position 18
+Current CRT row: ##..##..##..##..##.
+End of cycle 19: finish executing noop
+
+Start cycle  20: begin executing addx -1
+During cycle 20: CRT draws pixel in position 19
+Current CRT row: ##..##..##..##..##..
+
+During cycle 21: CRT draws pixel in position 20
+Current CRT row: ##..##..##..##..##..#
+End of cycle 21: finish executing addx -1 (Register X is now 20)
+Sprite position: ...................###..................</code></pre>
+    <p>Allowing the program to run to completion causes the CRT to
+    produce the following image:</p>
+    <pre><code>##..##..##..##..##..##..##..##..##..##..
+###...###...###...###...###...###...###.
+####....####....####....####....####....
+#####.....#####.....#####.....#####.....
+######......######......######......####
+#######.......#######.......#######.....</code></pre>
+    <p>Render the image given by your program. <strong>What eight
+    capital letters appear on your CRT?</strong></p>
+    <h4 id="your-puzzle-answer-was-ezfprakl.">Your puzzle answer was
+    EZFPRAKL.</h4>
     <hr />
     <h2 id="solution">Solution</h2>
-    <p>This solution is written in <code>?</code>.</p>
-    <pre class="?"><code></code></pre>
+    <p>This solution is written in <code>PHP</code>.</p>
+    <div class="sourceCode" id="cb6"><pre
+    class="sourceCode php"><code class="sourceCode php"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;?php</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="va">$lines</span> <span class="op">=</span> <span class="fu">file</span>(<span class="st">&#39;input.txt&#39;</span>)<span class="ot">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="va">$clock</span> <span class="op">=</span> <span class="dv">0</span><span class="ot">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="va">$register</span> <span class="op">=</span> <span class="dv">1</span><span class="ot">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="va">$signalStrength</span> <span class="op">=</span> <span class="dv">0</span><span class="ot">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="va">$CRT</span> <span class="op">=</span> <span class="dt">array</span>()<span class="ot">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="va">$debug</span> <span class="op">=</span> <span class="kw">false</span><span class="ot">;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> writeCRT() {</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> <span class="va">$register</span><span class="ot">,</span> <span class="va">$CRT</span><span class="ot">;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="va">$register</span> <span class="op">-</span><span class="dv">1</span> <span class="op">&lt;=</span> <span class="fu">count</span>(<span class="va">$CRT</span>) <span class="op">%</span> <span class="dv">40</span> <span class="op">and</span> <span class="va">$register</span> <span class="op">+</span><span class="dv">1</span> <span class="op">&gt;=</span> <span class="fu">count</span>(<span class="va">$CRT</span>) <span class="op">%</span> <span class="dv">40</span>) {</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">$CRT</span>[] <span class="op">=</span> <span class="st">&quot;█&quot;</span><span class="ot">;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">$CRT</span>[] <span class="op">=</span> <span class="st">&quot; &quot;</span><span class="ot">;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> readCRT()</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> <span class="va">$CRT</span><span class="ot">;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="va">$index</span> <span class="op">=</span> <span class="dv">0</span><span class="ot">;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">foreach</span> (<span class="va">$CRT</span> <span class="kw">as</span> <span class="va">$pixel</span>) {</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="va">$index</span> <span class="op">%</span> <span class="dv">40</span> <span class="op">==</span> <span class="dv">0</span>) <span class="kw">echo</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="ot">;</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">echo</span> <span class="va">$pixel</span><span class="ot">;</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        <span class="va">$index</span><span class="op">++</span><span class="ot">;</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> checkSignal()</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> <span class="va">$clock</span><span class="ot">,</span> <span class="va">$register</span><span class="ot">,</span> <span class="va">$signalStrength</span><span class="ot">,</span> <span class="va">$debug</span><span class="ot">;</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    <span class="va">$signal</span> <span class="op">=</span> <span class="dt">array</span>(<span class="dv">20</span><span class="ot">,</span> <span class="dv">60</span><span class="ot">,</span> <span class="dv">100</span><span class="ot">,</span> <span class="dv">140</span><span class="ot">,</span> <span class="dv">180</span><span class="ot">,</span> <span class="dv">220</span>)<span class="ot">;</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">in_array</span>(<span class="va">$clock</span><span class="ot">,</span> <span class="va">$signal</span>)) {</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>        <span class="va">$signalStrength</span> <span class="op">+=</span> <span class="va">$register</span> <span class="op">*</span> <span class="va">$clock</span><span class="ot">;</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="va">$debug</span>)</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>            <span class="kw">echo</span> <span class="st">&quot;During the &quot;</span><span class="ot">,</span> <span class="va">$clock</span><span class="ot">,</span> <span class="st">&quot;th cycle, register X has the value &quot;</span><span class="ot">,</span> <span class="va">$register</span><span class="ot">,</span> <span class="st">&quot;, so the signal strength is &quot;</span><span class="ot">,</span> <span class="va">$clock</span><span class="ot">,</span> <span class="st">&quot; * &quot;</span><span class="ot">,</span> <span class="va">$register</span><span class="ot">,</span> <span class="st">&quot; = &quot;</span><span class="ot">,</span> <span class="va">$register</span> <span class="op">*</span> <span class="va">$clock</span><span class="ot">,</span> <span class="st">&quot;.</span><span class="sc">\n</span><span class="st">&quot;</span><span class="ot">;</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> processCycle() {</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    writeCRT()<span class="ot">;</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    checkSignal()<span class="ot">;</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> main()</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    <span class="co">// I don&#39;t know if this is PHP way of coding. Never coded on PHP before. But seems very nice language.</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> <span class="va">$clock</span><span class="ot">,</span> <span class="va">$register</span><span class="ot">,</span> <span class="va">$signalStrength</span><span class="ot">,</span> <span class="va">$lines</span><span class="ot">,</span> <span class="va">$CRT</span><span class="ot">;</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">foreach</span> (<span class="va">$lines</span> <span class="kw">as</span> <span class="va">$line</span>) {</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>        <span class="va">$clock</span><span class="op">++</span><span class="ot">;</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>        processCycle()<span class="ot">;</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Split command by space</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>        <span class="va">$args</span> <span class="op">=</span> <span class="fu">explode</span>(<span class="st">&quot; &quot;</span><span class="ot">,</span> <span class="va">$line</span>)<span class="ot">;</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>        <span class="co">// If args list have two objects ( it is addx command )</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">count</span>(<span class="va">$args</span>) <span class="op">==</span> <span class="dv">2</span>) {</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>            <span class="va">$clock</span><span class="op">++</span><span class="ot">;</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>            processCycle()<span class="ot">;</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>            <span class="co">// After 2 clock cycles increment register value by given value</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>            <span class="va">$register</span> <span class="op">+=</span> <span class="va">$args</span>[<span class="dv">1</span>]<span class="ot">;</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>    <span class="kw">echo</span> <span class="st">&quot;Part I: &quot;</span><span class="ot">,</span> <span class="va">$signalStrength</span><span class="ot">;</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>    <span class="kw">echo</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="ot">;</span></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>    <span class="kw">echo</span> <span class="st">&quot;Part II: &quot;</span><span class="ot">;</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>    readCRT()<span class="ot">;</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>main()<span class="ot">;</span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="kw">?&gt;</span></span></code></pre></div>
 
 </article>
 
