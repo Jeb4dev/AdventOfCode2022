@@ -373,15 +373,342 @@ Monkey 3 inspected items 105 times. &lt;&lt; and this</code></pre>
     <p>Figure out which monkeys to chase by counting how many items they
     inspect over 20 rounds. <strong>What is the level of monkey business
     after 20 rounds of stuff-slinging simian shenanigans?</strong></p>
-    <h4 id="your-puzzle-answer-was-xxx.">Your puzzle answer was
-    XXX.</h4>
+    <h4 id="your-puzzle-answer-was-62491.">Your puzzle answer was
+    62491.</h4>
     <h3 id="part-two">— Part Two —</h3>
-    <h4 id="your-puzzle-answer-was-xxx.-1">Your puzzle answer was
-    XXX.</h4>
+    <p>You’re worried you might not ever get your items back. So
+    worried, in fact, that your relief that a monkey’s inspection didn’t
+    damage an item <strong>no longer causes your worry level to be
+    divided by three</strong>.</p>
+    <p>Unfortunately, that relief was all that was keeping your worry
+    levels from reaching <strong>ridiculous levels</strong>. You’ll need
+    to <strong>find another way to keep your worry levels
+    manageable</strong>.</p>
+    <p>At this rate, you might be putting up with these monkeys for a
+    <strong>very long time</strong> - possibly <code>10000</code>
+    <strong>rounds</strong>!</p>
+    <p>With these new rules, you can still figure out the monkey
+    business after <code>10000</code> rounds. Using the same example
+    above:</p>
+    <pre><code>== After round 1 ==
+Monkey 0 inspected items 2 times.
+Monkey 1 inspected items 4 times.
+Monkey 2 inspected items 3 times.
+Monkey 3 inspected items 6 times.
+
+== After round 20 ==
+Monkey 0 inspected items 99 times.
+Monkey 1 inspected items 97 times.
+Monkey 2 inspected items 8 times.
+Monkey 3 inspected items 103 times.
+
+== After round 1000 ==
+Monkey 0 inspected items 5204 times.
+Monkey 1 inspected items 4792 times.
+Monkey 2 inspected items 199 times.
+Monkey 3 inspected items 5192 times.
+
+== After round 2000 ==
+Monkey 0 inspected items 10419 times.
+Monkey 1 inspected items 9577 times.
+Monkey 2 inspected items 392 times.
+Monkey 3 inspected items 10391 times.
+
+== After round 3000 ==
+Monkey 0 inspected items 15638 times.
+Monkey 1 inspected items 14358 times.
+Monkey 2 inspected items 587 times.
+Monkey 3 inspected items 15593 times.
+
+== After round 4000 ==
+Monkey 0 inspected items 20858 times.
+Monkey 1 inspected items 19138 times.
+Monkey 2 inspected items 780 times.
+Monkey 3 inspected items 20797 times.
+
+== After round 5000 ==
+Monkey 0 inspected items 26075 times.
+Monkey 1 inspected items 23921 times.
+Monkey 2 inspected items 974 times.
+Monkey 3 inspected items 26000 times.
+
+== After round 6000 ==
+Monkey 0 inspected items 31294 times.
+Monkey 1 inspected items 28702 times.
+Monkey 2 inspected items 1165 times.
+Monkey 3 inspected items 31204 times.
+
+== After round 7000 ==
+Monkey 0 inspected items 36508 times.
+Monkey 1 inspected items 33488 times.
+Monkey 2 inspected items 1360 times.
+Monkey 3 inspected items 36400 times.
+
+== After round 8000 ==
+Monkey 0 inspected items 41728 times.
+Monkey 1 inspected items 38268 times.
+Monkey 2 inspected items 1553 times.
+Monkey 3 inspected items 41606 times.
+
+== After round 9000 ==
+Monkey 0 inspected items 46945 times.
+Monkey 1 inspected items 43051 times.
+Monkey 2 inspected items 1746 times.
+Monkey 3 inspected items 46807 times.
+
+== After round 10000 ==
+Monkey 0 inspected items 52166 times.
+Monkey 1 inspected items 47830 times.
+Monkey 2 inspected items 1938 times.
+Monkey 3 inspected items 52013 times.</code></pre>
+    <p>After 10000 rounds, the two most active monkeys inspected items
+    52166 and 52013 times. Multiplying these together, the level of
+    <strong>monkey business</strong> in this situation is now
+    <strong>2713310158</strong>.</p>
+    <p>Worry levels are no longer divided by three after each item is
+    inspected; you’ll need to find another way to keep your worry levels
+    manageable. Starting again from the initial state in your puzzle
+    input, <strong>what is the level of monkey business after 10000
+    rounds?</strong></p>
+    <h4 id="your-puzzle-answer-was-17408399184.">Your puzzle answer was
+    17408399184.</h4>
     <hr />
     <h2 id="solution">Solution</h2>
-    <p>This solution is written in <code>?</code>.</p>
-    <pre class="?"><code></code></pre>
+    <p>This solution is written in <code>R</code>.</p>
+    <p style="color: red;">
+    Disclaimer
+    </p>
+    <p>Solution in R was not compleat. Part II of python solution needed
+    some help online, all brainpower was used for R :D</p>
+    <div class="sourceCode" id="cb7"><pre
+    class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unready solution for Advent of Cyber 2022</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Item <span class="ot">&lt;-</span> <span class="cf">function</span>(id, worry_level) {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># attributes</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  self.id <span class="ot">&lt;-</span> id</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  self.worry_level <span class="ot">&lt;-</span> worry_level</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">structure</span>(<span class="at">class =</span> <span class="st">&quot;Item&quot;</span>, <span class="fu">list</span>(</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># methods</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">get_id =</span> <span class="cf">function</span>() self.id,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">get_worry_level =</span> <span class="cf">function</span>() self.worry_level,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">set_worry_level =</span> <span class="cf">function</span>(worry_level) self.worry_level <span class="ot">&lt;&lt;-</span> worry_level,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">divide_worry_level =</span> <span class="cf">function</span>() self.worry_level <span class="ot">&lt;&lt;-</span> <span class="fu">round</span>(self.worry_level <span class="sc">/</span> <span class="dv">3</span>, <span class="dv">0</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>Monkey <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="dv">0</span>, items, <span class="at">multiply =</span> <span class="dv">1</span>, <span class="at">increase =</span> <span class="dv">0</span>, <span class="at">test =</span> <span class="cn">NULL</span>, <span class="at">on_true =</span> <span class="cn">NULL</span>, <span class="at">on_false =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># attributes</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  self.id <span class="ot">&lt;-</span> id</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  self.items <span class="ot">&lt;-</span> items</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  self.item <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  self.multiply <span class="ot">&lt;-</span> multiply</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  self.increase <span class="ot">&lt;-</span> increase</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  self.test <span class="ot">&lt;-</span> test</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  self.on_true <span class="ot">&lt;-</span> on_true</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  self.on_false <span class="ot">&lt;-</span> on_false</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Created new Monkey&quot;</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">structure</span>(<span class="at">class =</span> <span class="st">&quot;Monkey&quot;</span>, <span class="fu">list</span>(</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># methods</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">get_id =</span> <span class="cf">function</span>() self.id,</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">get_multiply =</span> <span class="cf">function</span>() returnself.multiply,</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">inspect =</span> <span class="cf">function</span>() {</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">length</span>(self.items))</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>      self.item <span class="ot">&lt;-</span> <span class="fu">tail</span>(self.items, <span class="dv">1</span>)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">length</span>(self.items))</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>      item <span class="ot">&lt;-</span> self.item</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(item<span class="sc">$</span><span class="fu">get_id</span>())</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>      worry_level <span class="ot">&lt;-</span> item.get_worry_level</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>      worry_level <span class="ot">&lt;-</span> worry_level <span class="sc">+</span> self.increase</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>      worry_level <span class="ot">&lt;-</span> worry_level <span class="sc">*</span> self.multiply</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>      <span class="fu">item.set_worry_level</span>()</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">test_item =</span> <span class="cf">function</span>() {</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (self.item <span class="sc">%%</span> self.test <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>        target <span class="ot">&lt;-</span> <span class="fu">get_monkey_by_id</span>(self.on_true)</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>        <span class="fu">target.add_item</span>(self.item)</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>        target <span class="ot">&lt;-</span> <span class="fu">get_monkey_by_id</span>(self.on_false)</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>        <span class="fu">target.add_item</span>(self.item)</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>      self.item <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">add_item =</span> <span class="cf">function</span>(item) {</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>      self.items <span class="ot">&lt;-</span> <span class="fu">append</span>(self.items, item, <span class="dv">1</span>)</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">get_items =</span> <span class="cf">function</span>() {</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>      self.items</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">length</span>(self.items))</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>get_monkey_by_id <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (id <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(a)</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (id <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(b)</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (id <span class="sc">==</span> <span class="dv">2</span>) <span class="fu">return</span>(c)</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (id <span class="sc">==</span> <span class="dv">3</span>) <span class="fu">return</span>(d)</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (id <span class="sc">==</span> <span class="dv">4</span>) <span class="fu">return</span>(e)</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>items <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>item <span class="ot">=</span> <span class="fu">Item</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>item2 <span class="ot">=</span> <span class="fu">Item</span>(<span class="dv">2</span>, <span class="dv">8</span>)</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="fu">append</span>(items, item)</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="fu">append</span>(items, item2)</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>item<span class="sc">$</span><span class="fu">get_id</span>()</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>items[<span class="dv">1</span>]<span class="sc">$</span><span class="fu">get_id</span>()</span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot; &quot;</span>)</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>monkis <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>monki <span class="ot">&lt;-</span> <span class="fu">Monkey</span>(<span class="dv">1</span>, <span class="fu">list</span>())</span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="co"># monki2 &lt;- Monkey(2, list())</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="co"># monki3 &lt;- Monkey(3, list())</span></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>monkis <span class="ot">&lt;-</span> <span class="fu">append</span>(monkis, monki)</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="co"># monkis &lt;- append(monkis, monki2)</span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="co"># monkis &lt;- append(monkis, monki3)</span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>aa <span class="ot">&lt;-</span> monkis[[<span class="dv">5</span>]](<span class="fu">Item</span>(<span class="dv">66</span>, <span class="dv">16</span>))</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>aa <span class="ot">&lt;-</span> monkis[[<span class="dv">5</span>]](<span class="fu">Item</span>(<span class="dv">88</span>, <span class="dv">112</span>))</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="co"># monkis[[11]](Item(6, 8))</span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="co"># monkis[[17]](Item(8, 32))</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>monkis[[<span class="dv">6</span>]]()</span></code></pre></div>
+    <p>This solution is written in <code>Python</code>.</p>
+    <div class="sourceCode" id="cb8"><pre
+    class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>PART_1 <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>debug <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>monkies <span class="op">=</span> []</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reduce_worry():</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Got to find this solution from reddit, no thinking power left after R</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Source: https://github.com/Dullstar/Advent_Of_Code/blob/fa063a3692e5806ba4ff17cf23a62ede4ca10955/python/year2022/day11.py#L77</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">*</span> y, [i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">map</span>(<span class="kw">lambda</span> n: n.test, monkies)])</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Item:</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, worry_level):</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.worry_level: <span class="bu">int</span> <span class="op">=</span> worry_level</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> update_worry_level(<span class="va">self</span>, worry):</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.worry_level <span class="op">=</span> worry <span class="op">//</span> <span class="dv">3</span> <span class="cf">if</span> PART_1 <span class="cf">else</span> worry <span class="op">%</span> reduce_worry()</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> debug: <span class="bu">print</span>(<span class="ss">f&quot;Monkey gets bored with item. Worry level is divided by 3 to </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>worry_level<span class="sc">}</span><span class="ss">.&quot;</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_worry(<span class="va">self</span>):</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.worry_level</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Monkey:</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, <span class="bu">id</span>: <span class="bu">int</span>, items: <span class="bu">list</span>, multiply, increase: <span class="bu">int</span>, test: <span class="bu">int</span>, on_true: <span class="bu">int</span>, on_false: <span class="bu">int</span>):</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">id</span> <span class="op">=</span> <span class="bu">id</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.items <span class="op">=</span> items <span class="kw">or</span> []</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.multiply <span class="op">=</span> multiply <span class="kw">or</span> <span class="dv">1</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.increase <span class="op">=</span> increase <span class="kw">or</span> <span class="dv">0</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test <span class="op">=</span> test</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.on_true <span class="op">=</span> on_true</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.on_false <span class="op">=</span> on_false</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.monkey_business <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.item <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_id(<span class="va">self</span>):</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.<span class="bu">id</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> inspect(<span class="va">self</span>):</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.monkey_business <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.item <span class="op">=</span> <span class="va">self</span>.items.pop(<span class="dv">0</span>)</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>        worry_level <span class="op">=</span> <span class="bu">int</span>(<span class="va">self</span>.item.worry_level)</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> debug: <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="ss">Monkey inspects an item with a worry level of </span><span class="sc">{</span>worry_level<span class="sc">}</span><span class="ss">.&quot;</span>)</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>        worry_level <span class="op">*=</span> <span class="bu">int</span>(<span class="va">self</span>.multiply) <span class="cf">if</span> <span class="bu">str</span>(<span class="va">self</span>.multiply).isdigit() <span class="cf">else</span> worry_level</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> debug: <span class="bu">print</span>(</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f&quot;Worry level is multiplied by </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>multiply <span class="cf">if</span> <span class="bu">str</span>(<span class="va">self</span>.multiply)<span class="sc">.</span>isdigit() <span class="cf">else</span> <span class="st">&#39;itself&#39;</span><span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>worry_level<span class="sc">}</span><span class="ss">.&quot;</span>)</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>        worry_level <span class="op">+=</span> <span class="bu">int</span>(<span class="va">self</span>.increase)</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> debug: <span class="bu">print</span>(<span class="ss">f&quot;Worry level increases by </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>increase<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>worry_level<span class="sc">}</span><span class="ss">.&quot;</span>)</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.item.update_worry_level(worry_level)</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_item(<span class="va">self</span>):</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.item.worry_level <span class="op">%</span> <span class="va">self</span>.test <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> debug: <span class="bu">print</span>(<span class="ss">f&quot;Current worry level is divisible by </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>test<span class="sc">}</span><span class="ss">.&quot;</span>)</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>            target: Monkey <span class="op">=</span> monkies[<span class="va">self</span>.on_true]</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>            target: Monkey <span class="op">=</span> monkies[<span class="va">self</span>.on_false]</span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> debug: <span class="bu">print</span>(<span class="ss">f&quot;Current worry level is not divisible by </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>test<span class="sc">}</span><span class="ss">.&quot;</span>)</span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>        target.add_item(<span class="va">self</span>.item)</span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> debug: <span class="bu">print</span>(<span class="ss">f&quot;Item with worry level </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>item<span class="sc">.</span>worry_level<span class="sc">}</span><span class="ss"> is thrown to monkey </span><span class="sc">{</span>target<span class="sc">.</span>get_id()<span class="sc">}</span><span class="ss">.&quot;</span>)</span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.item <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> add_item(<span class="va">self</span>, item):</span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.items.append(item)</span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> monkey_handler(<span class="va">self</span>):</span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> debug: <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="ss">Monkey </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>get_id()<span class="sc">}</span><span class="ss">:&quot;</span>)</span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="bu">len</span>(<span class="va">self</span>.items) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.inspect()</span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.test_item()</span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_monkey_business(<span class="va">self</span>):</span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.monkey_business</span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;../input.txt&quot;</span>, <span class="st">&quot;r&quot;</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>    <span class="bu">id</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>    items <span class="op">=</span> []</span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>    multiply <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>    increase <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>    on_true <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>    on_false <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> <span class="bu">file</span>.read().split(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> index, monkey <span class="kw">in</span> <span class="bu">enumerate</span>(data):</span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>        <span class="bu">id</span> <span class="op">=</span> monkey.split()[<span class="dv">1</span>][<span class="dv">0</span>]</span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>        [items.append(Item(item)) <span class="cf">for</span> item <span class="kw">in</span></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;&quot;</span>.join(monkey.split(<span class="st">&quot;Starting items: &quot;</span>)[<span class="dv">1</span>].split(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">  Operation&quot;</span>)[<span class="dv">0</span>]).split(<span class="st">&quot;, &quot;</span>)]</span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print([item.worry_level for item in items])</span></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> monkey.split(<span class="st">&quot;Operation: new = old &quot;</span>)[<span class="dv">1</span>][<span class="dv">0</span>] <span class="op">==</span> <span class="st">&quot;+&quot;</span>:</span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>            increase <span class="op">=</span> monkey.split(<span class="st">&quot;Operation: new = old + &quot;</span>)[<span class="dv">1</span>].split(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)[<span class="dv">0</span>]</span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>            multiply <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>            multiply <span class="op">=</span> monkey.split(<span class="st">&quot;Operation: new = old * &quot;</span>)[<span class="dv">1</span>].split(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)[<span class="dv">0</span>]</span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>            increase <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>        test <span class="op">=</span> monkey.split(<span class="st">&quot;Test: divisible by &quot;</span>)[<span class="dv">1</span>].split(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)[<span class="dv">0</span>]</span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a>        on_true <span class="op">=</span> monkey.split(<span class="st">&quot;If true: throw to monkey &quot;</span>)[<span class="dv">1</span>].split(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)[<span class="dv">0</span>]</span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>        on_false <span class="op">=</span> monkey.split(<span class="st">&quot;If false: throw to monkey &quot;</span>)[<span class="dv">1</span>].split(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)[<span class="dv">0</span>]</span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a>        monkies.append(Monkey(<span class="bu">id</span><span class="op">=</span><span class="bu">int</span>(<span class="bu">id</span>), items<span class="op">=</span>items, multiply<span class="op">=</span>multiply, increase<span class="op">=</span>increase, test<span class="op">=</span><span class="bu">int</span>(test),</span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>                              on_true<span class="op">=</span><span class="bu">int</span>(on_true), on_false<span class="op">=</span><span class="bu">int</span>(on_false)))</span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> debug: <span class="bu">print</span>(<span class="ss">f&quot;Generated Monkey: id </span><span class="sc">{</span><span class="bu">id</span><span class="sc">}</span><span class="ss">, items </span><span class="sc">{</span>[item.get_worry() <span class="cf">for</span> item <span class="kw">in</span> items]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a>        items <span class="op">=</span> []</span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">20</span> <span class="cf">if</span> PART_1 <span class="cf">else</span> <span class="dv">10000</span></span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> rnd <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n):</span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> monkey <span class="kw">in</span> monkies:</span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a>            monkey.monkey_handler()</span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a>    monkey_business <span class="op">=</span> []</span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> monkey <span class="kw">in</span> monkies:</span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a>        monkey_business.append(monkey.get_monkey_business())</span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> debug:</span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>[item.get_worry() <span class="cf">for</span> item <span class="kw">in</span> monkey.items]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;monkey business </span><span class="sc">{</span>monkey<span class="sc">.</span>get_id()<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>monkey<span class="sc">.</span>get_monkey_business()<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a>    monkey_business.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;Part Part </span><span class="sc">{</span><span class="st">&#39;I&#39;</span> <span class="cf">if</span> PART_1 <span class="cf">else</span> <span class="st">&#39;II&#39;</span><span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>monkey_business[<span class="dv">0</span>] <span class="op">*</span> monkey_business[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
 
 </article>
 
