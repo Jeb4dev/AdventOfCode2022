@@ -59,8 +59,8 @@ I took that bit too literal and aim to solve each challenge with different progr
 1. ~~Assembly~~
 2. ~~Bash~~
 3. ~~C~~
-4. C# 
-5. C++ 
+4. **C**# 
+5. **C++** 
 6. COBOL 
 7. Carbon 
 8. Dart 
@@ -68,20 +68,20 @@ I took that bit too literal and aim to solve each challenge with different progr
 10. F
 11. ~~Go~~
 12. Haskell 
-13. JavaScript 
-14. Java 
+13. **JavaScript** 
+14. **Java** 
 15. Julia 
-16. Kotlin 
+16. **Kotlin** 
 17. Lisp 
-18. Lua 
+18. **Lua** 
 19. ~~PHP~~ 
 20. Pascal 
-21. Pearl 
+21. **Pearl** 
 22. ~~Python~~ 
 23. ~~R~~
 24. ~~Ruby~~
-25. Rust 
+25. **Rust** 
 26. SQL 
 27. Scala 
-28. TypeScript 
-29. Visual Basic
+28. **TypeScript** 
+29. ~~Visual Basic~~
