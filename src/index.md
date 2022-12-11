@@ -54,28 +54,34 @@ I took that bit too literal and aim to solve each challenge with different progr
 | [day 24](day_24.html) |                  |                        |
 | [day 25](day_25.html) |                  |                        |
 
-Language ideas:
+### Language ideas:
 
-- Rust
-- C++
-- Carbon
-- JS
-- TS
-- lua
-- SQL
-- COBOL
-- BASIC
-- f
-- Java
-- Kotlin
-- Scala
-- C#
-- PHP
-- R
-- Dart
-- Pearl
-- Julia
-- Lisp
-- Haskell
-- Pascal
-- Elixir
+1. ~~Assembly~~
+2. ~~Bash~~
+3. ~~C~~
+4. C# 
+5. C++ 
+6. COBOL 
+7. Carbon 
+8. Dart 
+9. Elixir 
+10. F
+11. ~~Go~~
+12. Haskell 
+13. JavaScript 
+14. Java 
+15. Julia 
+16. Kotlin 
+17. Lisp 
+18. Lua 
+19. ~~PHP~~ 
+20. Pascal 
+21. Pearl 
+22. ~~Python~~ 
+23. R
+24. ~~Ruby~~
+25. Rust 
+26. SQL 
+27. Scala 
+28. TypeScript 
+29. Visual Basic
