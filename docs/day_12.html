@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content='12/12/2022'>
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"
+    ></script>
+
+    <!-- Highlight -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+    <!--  Favicon   https://icons8.com/icons/set/snowflake-emoji  -->
+    <link type="image/png" sizes="96x96" rel="icon" href="static/favicon.png">
+    <title>Day 12 - Advent of Code 2022</title>
+</head>
+<body class="bg-dark">
+<style>
+    h1 {
+        text-align: center;
+        padding: 5vh;
+        color: gold;
+    }
+
+    a {
+        color: #e91e63;
+    }
+
+    b {
+        text-shadow: 0 0 5px #aaaaaa;
+    }
+
+</style>
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <!-- Container wrapper -->
+        <div class="container-fluid ">
+
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="/">Advent of Code 2022</a>
+
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <!-- Optional Header Links -->
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_11.html">Previous
+day</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/day_13.html">Next
+day</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+</header>
+
+<article class="container text-white" style="min-height: 94vh;">
+
+    <h1>Advent of Code 2022 - Day 12</h1>
+
+    <div class="container text-center">
+        <a href="https://adventofcode.com/2022/day/12"><button type="button" class="btn btn-light me-1">Official Site</button></a>
+        <a href="#challenge"><button type="button" class="btn btn-light me-1">Challenge</button></a>
+        <a href="#solution"><button type="button" class="btn btn-danger me-1">Solution</button></a>
+    </div>
+
+    <h2 id="challenge">Challenge</h2>
+    <h3 id="day-12-hill-climbing-algorithm">— Day 12: Hill Climbing
+    Algorithm —</h3>
+    <p>You try contacting the Elves using your handheld device, but the
+    river you’re following must be too low to get a decent signal.</p>
+    <p>You ask the device for a heightmap of the surrounding area (your
+    puzzle input). The heightmap shows the local area from above broken
+    into a grid; the elevation of each square of the grid is given by a
+    single lowercase letter, where <code>a</code> is the lowest
+    elevation, <code>b</code> is the next-lowest, and so on up to the
+    highest elevation, <code>z</code>.</p>
+    <p>Also included on the heightmap are marks for your current
+    position (<code>S</code>) and the location that should get the best
+    signal (<code>E</code>). Your current position (<code>S</code>) has
+    elevation <code>a</code>, and the location that should get the best
+    signal (<code>E</code>) has elevation <code>z</code>.</p>
+    <p>You’d like to reach E, but to save energy, you should do it in as
+    <strong>few steps as possible</strong>. During each step, you can
+    move exactly one square up, down, left, or right. To avoid needing
+    to get out your climbing gear, the elevation of the destination
+    square can be <strong>at most one higher</strong> than the elevation
+    of your current square; that is, if your current elevation is m, you
+    could step to elevation n, but not to elevation o. (This also means
+    that the elevation of the destination square can be much lower than
+    the elevation of your current square.)</p>
+    <p>For example:</p>
+    <pre><code>Sabqponm
+abcryxxl
+accszExk
+acctuvwj
+abdefghi</code></pre>
+    <p>Here, you start in the top-left corner; your goal is near the
+    middle. You could start by moving down or right, but eventually
+    you’ll need to head toward the e at the bottom. From there, you can
+    spiral around to the goal:</p>
+    <pre><code>v..v&lt;&lt;&lt;&lt;
+&gt;v.vv&lt;&lt;^
+.&gt;vv&gt;E^^
+..v&gt;&gt;&gt;^^
+..&gt;&gt;&gt;&gt;&gt;^``</code></pre>
+    <p>In the above diagram, the symbols indicate whether the path exits
+    each square moving up (<code>^</code>), down (<code>v</code>), left
+    (<code>&lt;</code>), or right (<code>&gt;</code>). The location that
+    should get the best signal is still <code>E</code>, and
+    <code>.</code> marks unvisited squares.</p>
+    <p>This path reaches the goal in <strong><code>31</code></strong>
+    steps, the fewest possible.</p>
+    <p><strong>What is the fewest steps required to move from your
+    current position to the location that should get the best
+    signal?</strong></p>
+    <h4 id="your-puzzle-answer-was-520.">Your puzzle answer was
+    520.</h4>
+    <h3 id="part-two">— Part Two —</h3>
+    <p>As you walk up the hill, you suspect that the Elves will want to
+    turn this into a hiking trail. The beginning isn’t very scenic,
+    though; perhaps you can find a better starting point.</p>
+    <p>To maximize exercise while hiking, the trail should start as low
+    as possible: elevation <code>a</code>. The goal is still the square
+    marked <code>E</code>. However, the trail should still be direct,
+    taking the fewest steps to reach its goal. So, you’ll need to find
+    the shortest path from <strong>any square at elevation</strong>
+    <code>a</code> to the square marked <code>E</code>.</p>
+    <p>Again consider the example from above:</p>
+    <pre><code>Sabqponm
+abcryxxl
+accszExk
+acctuvwj
+abdefghi</code></pre>
+    <p>Now, there are six choices for starting position (five marked
+    <code>a</code>, plus the square marked S that counts as being at
+    elevation <code>a</code>). If you start at the bottom-left square,
+    you can reach the goal most quickly:</p>
+    <pre><code>...v&lt;&lt;&lt;&lt;
+...vv&lt;&lt;^
+...v&gt;E^^
+.&gt;v&gt;&gt;&gt;^^
+&gt;^&gt;&gt;&gt;&gt;&gt;^</code></pre>
+    <p>This path reaches the goal in only 29 steps, the fewest
+    possible.</p>
+    <p><strong>What is the fewest steps required to move starting from
+    any square with elevation <code>a</code> to the location that should
+    get the best signal?</strong></p>
+    <h4 id="your-puzzle-answer-was-508.">Your puzzle answer was
+    508.</h4>
+    <hr />
+    <h2 id="solution">Solution</h2>
+    <p>This solution is written in <code>Lua</code>.</p>
+    <div class="sourceCode" id="cb5"><pre
+    class="sourceCode lua"><code class="sourceCode lua"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> printMatrix<span class="op">(</span>matrix<span class="op">)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> <span class="op">#</span>matrix <span class="cf">do</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> <span class="op">#</span>matrix<span class="op">[</span>i<span class="op">]</span> <span class="cf">do</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">io.write</span><span class="op">(</span>matrix<span class="op">[</span>i<span class="op">][</span>j<span class="op">])</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">print</span><span class="op">()</span> <span class="co">-- new line</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> getNext<span class="op">(</span>matrix<span class="op">,</span> row<span class="op">,</span> column<span class="op">,</span> length<span class="op">)</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> column <span class="op">&lt;</span> length <span class="cf">then</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> matrix<span class="op">[</span>row<span class="op">][</span>column <span class="op">+</span> <span class="dv">1</span><span class="op">]</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">nil</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> getLast<span class="op">(</span>matrix<span class="op">,</span> row<span class="op">,</span> column<span class="op">)</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> column <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">then</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> matrix<span class="op">[</span>row<span class="op">][</span>column <span class="op">-</span> <span class="dv">1</span><span class="op">]</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">nil</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> getUpper<span class="op">(</span>matrix<span class="op">,</span> row<span class="op">,</span> column<span class="op">)</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">then</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> matrix<span class="op">[</span>row <span class="op">-</span> <span class="dv">1</span><span class="op">][</span>column<span class="op">]</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">nil</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> getLower<span class="op">(</span>matrix<span class="op">,</span> row<span class="op">,</span> column<span class="op">,</span> height<span class="op">)</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row <span class="op">&lt;</span> height <span class="cf">then</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> matrix<span class="op">[</span>row <span class="op">+</span> <span class="dv">1</span><span class="op">][</span>column<span class="op">]</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">nil</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> getElevation<span class="op">(</span>e<span class="op">)</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> e <span class="op">==</span> <span class="st">&quot;E&quot;</span> <span class="cf">then</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fu">string.byte</span><span class="op">(</span><span class="st">&quot;z&quot;</span><span class="op">)</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">string.byte</span><span class="op">(</span>e<span class="op">)</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> file <span class="op">=</span> <span class="fu">io.open</span><span class="op">(</span><span class="st">&quot;../input.txt&quot;</span><span class="op">,</span> <span class="st">&quot;r&quot;</span><span class="op">)</span> <span class="co">-- read file</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> matrix <span class="op">=</span> <span class="op">{}</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> row <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> length <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> height <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> posE <span class="op">=</span> <span class="op">{}</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> posS <span class="op">=</span> <span class="op">{}</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> aIndex <span class="op">=</span> <span class="op">{}</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> aCount <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> file<span class="op">:</span><span class="fu">lines</span><span class="op">()</span> <span class="cf">do</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- line by line</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> row <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    length <span class="op">=</span> <span class="op">#</span>line</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    height <span class="op">=</span> row</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    matrix<span class="op">[</span>row<span class="op">]</span> <span class="op">=</span> <span class="op">{}</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> column <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> <span class="op">#</span>line <span class="cf">do</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>        <span class="co">-- length of line</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>        <span class="kw">local</span> ch <span class="op">=</span> line<span class="op">:</span><span class="fu">sub</span><span class="op">(</span>column<span class="op">,</span> column<span class="op">)</span> <span class="co">-- char at index</span></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>        matrix<span class="op">[</span>row<span class="op">][</span>column<span class="op">]</span> <span class="op">=</span> ch</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> ch <span class="op">==</span> <span class="st">&quot;E&quot;</span> <span class="cf">then</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>            posE<span class="op">[</span><span class="st">&quot;row&quot;</span><span class="op">]</span> <span class="op">=</span> row</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>            posE<span class="op">[</span><span class="st">&quot;col&quot;</span><span class="op">]</span> <span class="op">=</span> column</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> ch <span class="op">==</span> <span class="st">&quot;S&quot;</span> <span class="cf">then</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>            posS<span class="op">[</span><span class="st">&quot;row&quot;</span><span class="op">]</span> <span class="op">=</span> row</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>            posS<span class="op">[</span><span class="st">&quot;col&quot;</span><span class="op">]</span> <span class="op">=</span> column</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> ch <span class="op">==</span> <span class="st">&quot;a&quot;</span> <span class="cf">then</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>            aCount <span class="op">=</span> aCount <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>            aIndex<span class="op">[</span>aCount<span class="op">]</span> <span class="op">=</span> row <span class="op">*</span> length <span class="op">+</span> column <span class="op">-</span> length</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> edges <span class="op">=</span> <span class="op">{}</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="co">-- form graph</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> <span class="op">#</span>matrix <span class="cf">do</span></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> <span class="op">#</span>matrix<span class="op">[</span>i<span class="op">]</span> <span class="cf">do</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>        index <span class="op">=</span> i <span class="op">*</span> length <span class="op">+</span> j <span class="op">-</span> length</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>        edges<span class="op">[</span>index<span class="op">]</span> <span class="op">=</span> <span class="op">{}</span></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>        <span class="kw">local</span> current <span class="op">=</span> matrix<span class="op">[</span>i<span class="op">][</span>j<span class="op">]</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>        <span class="kw">local</span> last<span class="op">,</span> next<span class="op">,</span> up<span class="op">,</span> down <span class="op">=</span> getLast<span class="op">(</span>matrix<span class="op">,</span> i<span class="op">,</span> j<span class="op">),</span> getNext<span class="op">(</span>matrix<span class="op">,</span> i<span class="op">,</span> j<span class="op">,</span> length<span class="op">),</span> getUpper<span class="op">(</span>matrix<span class="op">,</span> i<span class="op">,</span> j<span class="op">),</span> getLower<span class="op">(</span>matrix<span class="op">,</span> i<span class="op">,</span> j<span class="op">,</span> height<span class="op">)</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> last <span class="op">~=</span> <span class="kw">nil</span> <span class="cf">then</span></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> getElevation<span class="op">(</span>last<span class="op">)</span> <span class="op">&lt;=</span> getElevation<span class="op">(</span>current<span class="op">)</span> <span class="op">+</span> <span class="dv">1</span> <span class="kw">or</span> current <span class="op">==</span> <span class="st">&quot;S&quot;</span> <span class="cf">then</span></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>                edges<span class="op">[</span>index<span class="op">][</span>index <span class="op">-</span> <span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>                <span class="co">--print(index, index - 1)</span></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">next</span> <span class="op">~=</span> <span class="kw">nil</span> <span class="cf">then</span></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> getElevation<span class="op">(</span><span class="fu">next</span><span class="op">)</span> <span class="op">&lt;=</span> getElevation<span class="op">(</span>current<span class="op">)</span> <span class="op">+</span> <span class="dv">1</span> <span class="kw">or</span> current <span class="op">==</span> <span class="st">&quot;S&quot;</span> <span class="cf">then</span></span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>                edges<span class="op">[</span>index<span class="op">][</span>index <span class="op">+</span> <span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>                <span class="co">--print(index, index + 1)</span></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> up <span class="op">~=</span> <span class="kw">nil</span> <span class="cf">then</span></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> getElevation<span class="op">(</span>up<span class="op">)</span> <span class="op">&lt;=</span> getElevation<span class="op">(</span>current<span class="op">)</span> <span class="op">+</span> <span class="dv">1</span> <span class="kw">or</span> current <span class="op">==</span> <span class="st">&quot;S&quot;</span> <span class="cf">then</span></span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>                edges<span class="op">[</span>index<span class="op">][</span>index <span class="op">-</span> length<span class="op">]</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>                <span class="co">--print(index, index - length)</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> down <span class="op">~=</span> <span class="kw">nil</span> <span class="cf">then</span></span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> getElevation<span class="op">(</span>down<span class="op">)</span> <span class="op">&lt;=</span> getElevation<span class="op">(</span>current<span class="op">)</span> <span class="op">+</span> <span class="dv">1</span> <span class="kw">or</span> current <span class="op">==</span> <span class="st">&quot;S&quot;</span> <span class="cf">then</span></span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>                edges<span class="op">[</span>index<span class="op">][</span>index <span class="op">+</span> length<span class="op">]</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>                <span class="co">--print(index, index + length)</span></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> starting_vertex <span class="op">=</span> posS<span class="op">[</span><span class="st">&quot;row&quot;</span><span class="op">]</span> <span class="op">*</span> length <span class="op">+</span> posS<span class="op">[</span><span class="st">&quot;col&quot;</span><span class="op">]</span> <span class="op">-</span> length</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> destination_vertex <span class="op">=</span> posE<span class="op">[</span><span class="st">&quot;row&quot;</span><span class="op">]</span> <span class="op">*</span> length <span class="op">+</span> posE<span class="op">[</span><span class="st">&quot;col&quot;</span><span class="op">]</span> <span class="op">-</span>length</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a><span class="co">-- below code is from stackoverflow: https://stackoverflow.com/a/55919336</span></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> p1<span class="op">(</span><span class="cn">_</span>starting_vertex<span class="op">)</span></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> <span class="kw">function</span> create_dijkstra<span class="op">(</span><span class="cn">_</span>starting_vertex<span class="op">)</span></span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>        <span class="kw">local</span> shortest_paths <span class="op">=</span> <span class="op">{</span> <span class="op">[</span><span class="cn">_</span>starting_vertex<span class="op">]</span> <span class="op">=</span> <span class="op">{</span> full_distance <span class="op">=</span> <span class="dv">0</span> <span class="op">}</span> <span class="op">}</span></span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>        <span class="kw">local</span> vertex<span class="op">,</span> distance<span class="op">,</span> heap_size<span class="op">,</span> heap <span class="op">=</span> <span class="cn">_</span>starting_vertex<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">{}</span></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span><span class="op">(</span>adjacent_vertex<span class="op">,</span> edge_length<span class="op">)</span></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> adjacent_vertex <span class="cf">then</span></span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>                <span class="co">-- receiving the information about adjacent vertex</span></span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>                <span class="kw">local</span> new_distance <span class="op">=</span> distance <span class="op">+</span> edge_length</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>                <span class="kw">local</span> adjacent_vertex_info <span class="op">=</span> shortest_paths<span class="op">[</span>adjacent_vertex<span class="op">]</span></span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>                <span class="kw">local</span> pos</span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> adjacent_vertex_info <span class="cf">then</span></span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> new_distance <span class="op">&lt;</span> adjacent_vertex_info<span class="op">.</span>full_distance <span class="cf">then</span></span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>                        adjacent_vertex_info<span class="op">.</span>full_distance <span class="op">=</span> new_distance</span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>                        adjacent_vertex_info<span class="op">.</span>previous_vertex <span class="op">=</span> vertex</span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>                        pos <span class="op">=</span> adjacent_vertex_info<span class="op">.</span>index</span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">else</span></span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">return</span></span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">end</span></span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span></span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>                    adjacent_vertex_info <span class="op">=</span> <span class="op">{</span> full_distance <span class="op">=</span> new_distance<span class="op">,</span> previous_vertex <span class="op">=</span> vertex<span class="op">,</span> index <span class="op">=</span> <span class="dv">0</span> <span class="op">}</span></span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>                    shortest_paths<span class="op">[</span>adjacent_vertex<span class="op">]</span> <span class="op">=</span> adjacent_vertex_info</span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>                    heap_size <span class="op">=</span> heap_size <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>                    pos <span class="op">=</span> heap_size</span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>                <span class="cf">while</span> pos <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">do</span></span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">local</span> parent_pos <span class="op">=</span> <span class="op">(</span>pos <span class="op">-</span> pos <span class="op">%</span> <span class="dv">2</span><span class="op">)</span> <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">local</span> parent <span class="op">=</span> heap<span class="op">[</span>parent_pos<span class="op">]</span></span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">local</span> parent_info <span class="op">=</span> shortest_paths<span class="op">[</span>parent<span class="op">]</span></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> new_distance <span class="op">&lt;</span> parent_info<span class="op">.</span>full_distance <span class="cf">then</span></span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>                        heap<span class="op">[</span>pos<span class="op">]</span> <span class="op">=</span> parent</span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>                        parent_info<span class="op">.</span>index <span class="op">=</span> pos</span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>                        pos <span class="op">=</span> parent_pos</span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">else</span></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">break</span></span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">end</span></span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>                heap<span class="op">[</span>pos<span class="op">]</span> <span class="op">=</span> adjacent_vertex</span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>                adjacent_vertex_info<span class="op">.</span>index <span class="op">=</span> pos</span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elseif</span> heap_size <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">then</span></span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>                <span class="co">-- which vertex neighborhood to ask for?</span></span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a>                vertex <span class="op">=</span> heap<span class="op">[</span><span class="dv">1</span><span class="op">]</span></span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a>                <span class="kw">local</span> parent <span class="op">=</span> heap<span class="op">[</span>heap_size<span class="op">]</span></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a>                heap<span class="op">[</span>heap_size<span class="op">]</span> <span class="op">=</span> <span class="kw">nil</span></span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>                heap_size <span class="op">=</span> heap_size <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> heap_size <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">then</span></span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">local</span> pos <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">local</span> last_node_pos <span class="op">=</span> heap_size <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">local</span> parent_info <span class="op">=</span> shortest_paths<span class="op">[</span>parent<span class="op">]</span></span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">local</span> parent_distance <span class="op">=</span> parent_info<span class="op">.</span>full_distance</span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">while</span> pos <span class="op">&lt;=</span> last_node_pos <span class="cf">do</span></span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a>                        <span class="kw">local</span> child_pos <span class="op">=</span> pos <span class="op">+</span> pos</span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a>                        <span class="kw">local</span> child <span class="op">=</span> heap<span class="op">[</span>child_pos<span class="op">]</span></span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a>                        <span class="kw">local</span> child_info <span class="op">=</span> shortest_paths<span class="op">[</span>child<span class="op">]</span></span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a>                        <span class="kw">local</span> child_distance <span class="op">=</span> child_info<span class="op">.</span>full_distance</span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span> child_pos <span class="op">&lt;</span> heap_size <span class="cf">then</span></span>
+<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a>                            <span class="kw">local</span> child_pos2 <span class="op">=</span> child_pos <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a>                            <span class="kw">local</span> child2 <span class="op">=</span> heap<span class="op">[</span>child_pos2<span class="op">]</span></span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>                            <span class="kw">local</span> child2_info <span class="op">=</span> shortest_paths<span class="op">[</span>child2<span class="op">]</span></span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a>                            <span class="kw">local</span> child2_distance <span class="op">=</span> child2_info<span class="op">.</span>full_distance</span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">if</span> child2_distance <span class="op">&lt;</span> child_distance <span class="cf">then</span></span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a>                                child_pos <span class="op">=</span> child_pos2</span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>                                child <span class="op">=</span> child2</span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a>                                child_info <span class="op">=</span> child2_info</span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>                                child_distance <span class="op">=</span> child2_distance</span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">end</span></span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">end</span></span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span> child_distance <span class="op">&lt;</span> parent_distance <span class="cf">then</span></span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>                            heap<span class="op">[</span>pos<span class="op">]</span> <span class="op">=</span> child</span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>                            child_info<span class="op">.</span>index <span class="op">=</span> pos</span>
+<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a>                            pos <span class="op">=</span> child_pos</span>
+<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">else</span></span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">break</span></span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">end</span></span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">end</span></span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>                    heap<span class="op">[</span>pos<span class="op">]</span> <span class="op">=</span> parent</span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a>                    parent_info<span class="op">.</span>index <span class="op">=</span> pos</span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a>                <span class="kw">local</span> vertex_info <span class="op">=</span> shortest_paths<span class="op">[</span>vertex<span class="op">]</span></span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a>                vertex_info<span class="op">.</span>index <span class="op">=</span> <span class="kw">nil</span></span>
+<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a>                distance <span class="op">=</span> vertex_info<span class="op">.</span>full_distance</span>
+<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> vertex</span>
+<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span><span class="op">,</span></span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a>        shortest_paths</span>
+<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> vertex<span class="op">,</span> dijkstra<span class="op">,</span> shortest_paths <span class="op">=</span> <span class="cn">_</span>starting_vertex<span class="op">,</span> create_dijkstra<span class="op">(</span><span class="cn">_</span>starting_vertex<span class="op">)</span></span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> vertex <span class="kw">and</span> vertex <span class="op">~=</span> destination_vertex <span class="cf">do</span></span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a>        <span class="co">-- send information about all adjacent vertexes of &quot;vertex&quot;</span></span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> adjacent_vertex<span class="op">,</span> edge_length <span class="kw">in</span> <span class="fu">pairs</span><span class="op">(</span>edges<span class="op">[</span>vertex<span class="op">])</span> <span class="cf">do</span></span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a>            dijkstra<span class="op">(</span>adjacent_vertex<span class="op">,</span> edge_length<span class="op">)</span></span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a>        vertex <span class="op">=</span> dijkstra<span class="op">()</span>  <span class="co">-- now dijkstra is asking you about the neighborhood of another vertex</span></span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> vertex <span class="cf">then</span></span>
+<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a>        <span class="kw">local</span> full_distance <span class="op">=</span> shortest_paths<span class="op">[</span>vertex<span class="op">].</span>full_distance</span>
+<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a>        <span class="kw">local</span> path <span class="op">=</span> vertex</span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> vertex <span class="cf">do</span></span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>            vertex <span class="op">=</span> shortest_paths<span class="op">[</span>vertex<span class="op">].</span>previous_vertex</span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> vertex <span class="cf">then</span></span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a>                path <span class="op">=</span> vertex <span class="op">..</span> <span class="st">&quot; &quot;</span> <span class="op">..</span> path</span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>        <span class="co">--print(full_distance, path)</span></span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> full_distance</span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>        <span class="co">--print &quot;Path not found&quot;</span></span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span><span class="op">(</span><span class="st">&quot;part I:&quot;</span><span class="op">,</span> p1<span class="op">(</span>starting_vertex<span class="op">))</span></span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> minLength <span class="op">=</span> <span class="dv">2147483647</span></span>
+<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> <span class="op">#</span>aIndex <span class="cf">do</span></span>
+<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> len <span class="op">=</span> p1<span class="op">(</span>aIndex<span class="op">[</span>i<span class="op">])</span></span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="fu">len</span> <span class="op">~=</span> <span class="kw">nil</span> <span class="cf">then</span> <span class="co">-- nil if path not found</span></span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a>        <span class="co">--print(aIndex[i], len)</span></span>
+<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">len</span> <span class="op">&lt;</span> minLength <span class="cf">then</span></span>
+<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a>            minLength <span class="op">=</span> <span class="fu">len</span></span>
+<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span><span class="op">(</span><span class="st">&quot;part II:&quot;</span><span class="op">,</span> minLength<span class="op">)</span></span>
+<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a><span class="co">--printMatrix(matrix)</span></span></code></pre></div>
+
+</article>
+
+<!-- Footer -->
+<footer class="text-center text-white" style="background-color: rgba(0, 0, 0, 0.2);">
+    <!-- Grid container -->
+    <div class="container p-4">
+
+        <!-- Section: Text -->
+        <section class="mb-4">
+            <p>
+                These are my personal answers to the 2022 <a href="https://adventofcode.com/2022">Advent of Code</a>
+                Challenges.
+            </p>
+        </section>
+        <!-- Section: Text -->
+
+        <!-- Section: Links -->
+        <section class="mb-4">
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Featured</h5>
+
+                    <ul class="list-unstyled mb-0">
+                                                <li>
+                            <a href="/day_11.html" class="text-white">Previous
+day</a>
+                        </li>
+                                                <li>
+                            <a href="/day_13.html" class="text-white">Next
+day</a>
+                        </li>
+                                            </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Other Projects</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="https://tryhackme.jeb4.dev/" class="text-white">TryHackMe Notes</a>
+                        </li>
+                        <li>
+                            <a href="https://about.jeb4.dev/" class="text-white">Portfolio</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Contact</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a class="text-white" href="https://github.com/jeb4dev" role="button">Github</a>
+                        </li>
+                        <li>
+                            <a class="text-white" href="mailto: contact@jeb4.dev" role="button">contact@jeb4.dev</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </section>
+        <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        &copy; 2022 Jeb
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+<script>hljs.highlightAll();</script>
+
+</body>
+</html>
