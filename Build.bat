@@ -15,5 +15,13 @@ for /r %%i in (/src/*.md) do (
     @REM %cd% == current directory
     @REM %%~ni == short filename
 )
-
+for /d /r %%i in (/src/*) do (
+    for /r %%j in (/src/%%~ni/*.md) do (
+        echo "Building %%~ni/%%~nj.md to HTML"
+        pandoc --standalone --template templates/template.html src/%%~ni/%%~nj.md -o docs/%%~nj.html
+        powershell -Command "(Get-Content %cd%/docs/%%~nj.html) -replace %md%, %html% | Out-File -encoding Default %cd%/docs/%%~nj.html
+    )
+    @REM %cd% == current directory
+    @REM %%~ni == short filename
+)
 EXIT /B
